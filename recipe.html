@@ -11,11 +11,14 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="normalize.css">
- <!-- Font Awsome -->
-  <script src="https://kit.fontawesome.com/7b38d85776.js" crossorigin="anonymous"></script>
-  
-    <title>Best Recipes</title>
+    <link rel="stylesheet" href="normalize.css" />
+    <!-- Font Awsome -->
+    <script
+      src="https://kit.fontawesome.com/7b38d85776.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Recipe</title>
   </head>
 
   <body>
@@ -142,17 +145,65 @@
         </div>
       </div>
 
+      <main class="row justify-content-md-center mt-3 mb-2 reripeMainContainer">
+        <div class="col recipeImageCon">
+          <img src="./img/312px.jpg" alt="mainImage" />
+        </div>
 
-      <main class="row justify-content-md-center mt-3 mb-2
-      indexMainContainer">
-        <div class="col ">
-            <img src="./img/test.jpg" alt="mainImage">
+        <div class="col recipeTextCon">
+          <div class="recipeHeader">
+            <h1>CHEETOS® FLAMIN' HOT® Chocolate Gingerbread Cookies</h1>
+          </div>
+
+          <div class="preparationTimeCon">
+            <div class="timeIcon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="timeText">
+              <p class="bold">Make it in: 35 minutes</p>
+            </div>
+          </div>
+          <div class="description">
+            <p itemprop="description" class="semibold">
+              Jazzed up with chocolate, these holiday gingerbread cookies are
+              sweet, spicy and FLAMIN' HOT<sup>®</sup>!
+            </p>
+          </div>
+          <div class="block recipeIngredientsCon">
+            <div class="subtitle">
+              <h2>Ingredients</h2>
+            </div>
+          </div>
+
+          <div class="parent-btn to-share-container">
+            <div class="to-share-text">
+              <p class="bold hide-mobile">Share This Recipe</p>
+            </div>
+
+            <i class="fa-brands fa-thin fa-user fa-whatsapp-square"></i>
+
+            <i class="fa-solid fa-envelope"></i>
+          </div>
         </div>
       </main>
+
+
+
+      <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+          © 2022 Copyright: 
+          <a class="text-dark" href="https://mdbootstrap.com/">Halil Esmer</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
     </div>
+
   </body>
-  
-  <script src="./recipesData/complexSearch.js" ></script>
+
+  <script src="./recipesData/data.js"></script>
+  <script src="./recipesData/complexSearch.js"></script>
+
   <!-- Bootstrap -->
   <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
