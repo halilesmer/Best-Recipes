@@ -1,4 +1,4 @@
-const informtionData = {
+const informationsData = {
   vegetarian: false,
   vegan: false,
   glutenFree: false,

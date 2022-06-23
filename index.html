@@ -11,10 +11,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="normalize.css">
- <!-- Font Awsome -->
-  <script src="https://kit.fontawesome.com/7b38d85776.js" crossorigin="anonymous"></script>
-  
+    <link rel="stylesheet" href="normalize.css" />
+    <!-- Font Awsome -->
+    <script
+      src="https://kit.fontawesome.com/7b38d85776.js"
+      crossorigin="anonymous"
+    ></script>
+
     <title>Best Recipes</title>
   </head>
 
@@ -83,7 +86,7 @@
         </div>
       </nav>
       <!-- --- Search --- -->
-      <div class="row justify-content-md-center mt-3 mb-2">
+      <div class="row justify-content-md-center mt-3 mb-2 searchContainer">
         <div class="col col-lg-8">
           <form class="w-100">
             <div class="input-group mb-3">
@@ -142,17 +145,35 @@
         </div>
       </div>
 
-
-      <main class="row justify-content-md-center mt-3 mb-2
-      indexMainContainer">
-        <div class="col ">
-            <img src="./img/test.jpg" alt="mainImage">
-        </div>
+      <!-- Main Container -->
+         <main class="row justify-content-md-center mt-3 mb-2 indexMainContainer">
+        <!-- <div class="col">
+          <img src="./img/test.jpg" alt="mainImage" />
+        </div> -->
       </main>
+
+      <!-- Card Container -->
+      <div class="row row-cols-1 row-cols-md-3 g-4 cardContainer"></div>
+
+      <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div
+          class="text-center p-3"
+          style="background-color: rgba(0, 0, 0, 0.2)"
+        >
+          © 2022 Copyright:
+          <a class="text-dark" href="https://mdbootstrap.com/">Halil Esmer</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
     </div>
   </body>
-  
-  <script src="./recipesData/complexSearch.js" ></script>
+
+  <script src="./recipesData/data.js"></script>
+  <script src="./recipesData/complexSearchData.js"></script>
+  <script src="./recipesData/informationsData.js"></script>
+  <script src="./main.js"></script>
+  <script src="./information.js"></script>
   <!-- Bootstrap -->
   <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
