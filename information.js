@@ -5,8 +5,8 @@ const searchContainer = document.querySelector(".searchContainer");
 console.log("dataInformation.js: ", data);
 const infoData = informationsData.extendedIngredients;
 
-card.addEventListener("click", () => {
-  card.classList.add("makeDisplayNone");
+cardContainer.addEventListener("click", () => {
+  cardContainer.classList.add("makeDisplayNone");
 
   //   console.log("data: ", informationsData);
 

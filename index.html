@@ -89,14 +89,17 @@
       <div class="row justify-content-md-center mt-3 mb-2 searchContainer">
         <div class="col col-lg-8">
           <form class="w-100">
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 input-filter">
               <input
+                          onkeyup="myFunction()"
+                          id="searchInput"
                 type="text"
-                class="form-control"
+                class="form-control filter"
                 placeholder="What would you like to cook?"
                 aria-label="Search"
                 aria-describedby="button-addon2"
               />
+              
               <button
                 class="search-button form-control btn btn-outline-success btn-xs"
                 type="submit"
@@ -152,8 +155,35 @@
         </div> -->
       </main>
 
+
+
+      
       <!-- Card Container -->
-      <div class="row row-cols-1 row-cols-md-3 g-4 cardContainer"></div>
+      <div class="container">
+            
+
+        <div class="card-lists" id="card-lists">
+
+            <div class="row">
+      
+                      <!-- <div class="card" style="width: 18rem;"">
+                      <img src"./img/312px.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h3 class="card-title">ALI</h3>
+                        </div>
+                    </div>
+      
+                    <div class="card" style="width: 18rem;"">
+                      <img src"./img/312px.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h3 class="card-title">memet</h3>
+                        </div>
+                    </div> -->
+      
+            </div>
+
+        </div>
+      </div>
 
       <footer class="bg-light text-center text-lg-start">
         <!-- Copyright -->
