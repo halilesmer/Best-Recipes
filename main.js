@@ -1,12 +1,10 @@
  const main = document.querySelector("main");
 const cardContainer = document.querySelector("#card-lists");
 
-const cardRow = cardContainer.querySelector('.row')
+const cardRow = document.querySelector("#card-lists .row");
 console.log("cardRow: ", cardRow);
 
-// /*          <div class="col">
-//           </div>
-//  */
+
 for (let i = 0; i < data.length; i++) {
   cardRow.insertAdjacentHTML(
     "afterbegin",
@@ -34,27 +32,18 @@ for (let i = 0; i < data.length; i++) {
   
 }
 
-// console.log("cards", cards);
-
-// console.log("cards.length: ", cards.length);
-
-
-
 
 function myFunction() {
-  // Declare variables
   const input = document.getElementById("searchInput").value.toUpperCase();
   console.log("input: ", input);
 
   
   
-  const cards = cardContainer.getElementsByClassName("card");
+  const cards = cardContainer.getElementsByClassName("col");
   console.log("cards: ", cards);
-
 
   for (let i = 0; i < cards.length; i++) {
     let title = cards[i].querySelector(".card-body h3.card-title");
-    console.log("title", title);
 
     if (title.innerText.toUpperCase().indexOf(input) > -1) {
       cards[i].style.display = "";
@@ -67,23 +56,22 @@ function myFunction() {
 
 
 
-// style="width: 18rem;"
+// function myFunction() {
+//   // Declare variables
+//   const input = document.getElementById("searchInput").value.toUpperCase();
+//   console.log("input: ", input);
 
-// informationsData.forEach((key, index) => {
-// //     console.log(`${key}: ${informationsData[key]}`);
-// // });
+//   const cards = cardContainer.getElementsByClassName("card");
+//   console.log("cards: ", cards);
 
-// // Object.entries(informationsData).forEach((error) => {
-// //   console.log("error", error.id);
-// // });
+//   for (let i = 0; i < cards.length; i++) {
+//     let title = cards[i].querySelector(".card-body h3.card-title");
+//     console.log("title", title);
 
-// for (const key in informationsData) {
-//   console.log('keyin',`${key}: ${informationsData}`);
-//   // test = informationsData[key] === "servings";
+//     if (title.innerText.toUpperCase().indexOf(input) > -1) {
+//       cards[i].style.display = "";
+//     } else {
+//       cards[i].style.display = "none";
+//     }
+//   }
 // }
-
-// console.log("test: ", test);
-// // for (let i = 0; i < data.length; i++) {
-// // console.log("dataFor", complexSearchData[i].title);
-
-// // }

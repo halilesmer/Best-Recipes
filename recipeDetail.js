@@ -3,12 +3,12 @@ const searchContainer = document.querySelector(".searchContainer");
 // const card = document.querySelector(".cardContainer");
 
 console.log("dataInformation.js: ", data);
-const infoData = informationsData.extendedIngredients;
+const infoData = recipeDetail.extendedIngredients;
 
 cardContainer.addEventListener("click", () => {
   cardContainer.classList.add("makeDisplayNone");
 
-  //   console.log("data: ", informationsData);
+  //   console.log("data: ", recipeDetail);
 
   /* --- Selected Elements --- */
 
@@ -44,12 +44,12 @@ cardContainer.addEventListener("click", () => {
 
   /* --- Set Attributes --- */
 
-  recipeImageCon.setAttribute("class", "col col-md-6 recipeImageCon");
+  recipeImageCon.setAttribute("class", "col col-md-4 recipeImageCon");
 
   mainImg.setAttribute("alt", "mainImage");
-  mainImg.setAttribute("src", informationsData.image);
+  mainImg.setAttribute("src", recipeDetail.image);
 
-  recipeTextCon.setAttribute("class", "col col-md-6 recipeTextCon");
+  recipeTextCon.setAttribute("class", "col col-md-8 recipeTextCon");
   recipeHeader.setAttribute("class", "recipeHeader");
 
   preparationTimeCon.setAttribute("class", "preparationTimeCon");
@@ -68,7 +68,7 @@ cardContainer.addEventListener("click", () => {
   stepsListCon.setAttribute("class", "stepsListCon");
 
   //-- Textcontent ----
-  recipeH1.textContent = informationsData.title;
+  recipeH1.textContent = recipeDetail.title;
   timeTextP.innerText = "Make it in: 35 minutes";
   IngredientsSubtitleH2.innerText = "Ingredients";
   IngredientsTextCon.innerText = "Ingredients Textes";
@@ -116,16 +116,16 @@ cardContainer.addEventListener("click", () => {
     }
   }
 
-  for (let x = 0; x < informationsData.analyzedInstructions.length; x++) {
-    const steps = informationsData.analyzedInstructions[x].steps;
+  for (let x = 0; x < recipeDetail.analyzedInstructions.length; x++) {
+    const steps = recipeDetail.analyzedInstructions[x].steps;
     for (
       let y = 0;
-      y < informationsData.analyzedInstructions[x].steps.length;
+      y < recipeDetail.analyzedInstructions[x].steps.length;
       y++
     ) {
-      //   console.log("steps: ", informationsData.analyzedInstructions[x].steps[y]);
+      //   console.log("steps: ", recipeDetail.analyzedInstructions[x].steps[y]);
 
-      const sortedSteps = informationsData.analyzedInstructions[x].steps.sort(
+      const sortedSteps = recipeDetail.analyzedInstructions[x].steps.sort(
         (a, b) => b.number - a.number
       );
 
@@ -148,12 +148,12 @@ cardContainer.addEventListener("click", () => {
 // <main class="row justify-content-md-center mt-3 mb-2 reripeMainContainer">
 
 //     <div class="col col-md-6 recipeImageCon">
-//       <img src=${informationsData.image} alt="mainImage" />
+//       <img src=${recipeDetail.image} alt="mainImage" />
 //     </div>
 
 //     <div class="col col-md-6 recipeTextCon">
 //       <div class="recipeHeader">
-//         <h1>${informationsData.title}</h1>
+//         <h1>${recipeDetail.title}</h1>
 //       </div>
 //       <div class="preparationTimeCon">
 //         <div class="timeIcon">

@@ -1,4 +1,4 @@
-const informationsData = {
+const recipeDetail = {
   vegetarian: false,
   vegan: false,
   glutenFree: false,

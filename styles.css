@@ -4,110 +4,25 @@ html * {
   color: black;
   font-family: "OpenSans", sans-serif;
 }
+.container{
+      padding-bottom: 7rem;
+
+}
 
 #button-search {
   padding: 10px 20px;
   font-size: 20px;
   width: 10%;
 }
-.indexMainContainer img {
+/* .indexMainContainer img {
   height: 100%;
   position: relative;
   width: 100%;
   vertical-align: middle;
-}
-.recipeHeader {
-  font-family: "OpenSans-Bold", sans-serif;
-  position: relative;
-  display: block;
-  margin: 0 0 30px;
-}
-.recipeHeader h1 {
-  color: #000;
-  font-size: 35px;
-  line-height: 1.2;
-  text-align: center;
-  width: 85%;
-  margin: 0 auto;
-}
-.recipeImageCon {
-  position: relative;
-  z-index: 1;
-}
-.recipeImageCon img {
-  max-width: none;
-  max-height: 750px;
-  float: right;
-  border-bottom: 2px solid #fff;
-  vertical-align: top;
-  text-align: left;
-}
-.recipeIngredientsCon{
-  margin-bottom: 5rem;
-}
+} */
+.searchContainer form {
+  outline: solid lightseagreen 2px;
+       padding: 5px;
 
-.preparationTimeCon {
-  display: flex;
-  justify-content: flex-start;
-  /* align-items: center; */
-  align-content: flex-start;
-  flex-wrap: nowrap;
-}
-.preparationTimeCon .timeText {
-  width: calc(100% - 40px);
-}
-.preparationTimeCon .timeIcon {
-  margin-right: 5px;
-  display: inline;
-}
-.description {
-  margin: 0 0 30px;
-  text-align: left;
-}
-.description p {
-  font-size: 17px;
-  line-height: 1.75;
-  font-family: "OpenSans-Semibold", sans-serif;
-  color: #000;
-}
-
-.subtitle {
-    position: relative;
-    margin: 0 0 15px;
-    padding: 0 0 15px;
-    border-bottom: 4px solid #f57509;
-}
-.subtitle h2{
-    color: #000;
-    font-size: 22px;
-    line-height: 1.2;
-    text-align: left;
-}
-.block {
-    /* margin: 0 0 30px; */
-}
-.to-share-text {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-footer{
-    position: fixed;
-    bottom: 0%;
-    width: 100%;
-}
-.card-title{
-      font-weight: bold;
-}
-.makeDisplayNone{
-  display: none;
-}
- .card img,
-.card h3,
-.card li,
-.card a:hover{
-  cursor: pointer;
-} 
-.stepsListCon{
-  /* height: 500px; */
+    border-radius: 5px;
 }

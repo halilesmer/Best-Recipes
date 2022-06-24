@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styleRecipe.css" />
     <link rel="stylesheet" href="normalize.css" />
     <!-- Font Awsome -->
     <script
@@ -91,22 +92,22 @@
           <form class="w-100">
             <div class="input-group mb-3 input-filter">
               <input
-                          onkeyup="myFunction()"
-                          id="searchInput"
+                onkeyup="myFunction()"
+                id="searchInput"
                 type="text"
                 class="form-control filter"
                 placeholder="What would you like to cook?"
                 aria-label="Search"
                 aria-describedby="button-addon2"
               />
-              
-              <button
+
+              <!-- <button
                 class="search-button form-control btn btn-outline-success btn-xs"
                 type="submit"
                 id="button-search"
               >
                 Search
-              </button>
+              </button> -->
             </div>
 
             <div class="form-check justify-content-md-center form-check-inline">
@@ -149,39 +150,18 @@
       </div>
 
       <!-- Main Container -->
-         <main class="row justify-content-md-center mt-3 mb-2 indexMainContainer">
+      <main class="row justify-content-md-center mt-3 mb-2 indexMainContainer">
         <!-- <div class="col">
           <img src="./img/test.jpg" alt="mainImage" />
         </div> -->
       </main>
 
-
-
-      
       <!-- Card Container -->
-      <div class="container">
-            
-
+      <div class="card-container">
         <div class="card-lists" id="card-lists">
+          <div class="row row-cols-1 row-cols-md-3 g-2">
 
-            <div class="row">
-      
-                      <!-- <div class="card" style="width: 18rem;"">
-                      <img src"./img/312px.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h3 class="card-title">ALI</h3>
-                        </div>
-                    </div>
-      
-                    <div class="card" style="width: 18rem;"">
-                      <img src"./img/312px.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h3 class="card-title">memet</h3>
-                        </div>
-                    </div> -->
-      
-            </div>
-
+          </div>
         </div>
       </div>
 
@@ -201,9 +181,9 @@
 
   <script src="./recipesData/data.js"></script>
   <script src="./recipesData/complexSearchData.js"></script>
-  <script src="./recipesData/informationsData.js"></script>
+  <script src="./recipesData/recipeDetailData.js"></script>
   <script src="./main.js"></script>
-  <script src="./information.js"></script>
+  <script src="./recipeDetail.js"></script>
   <!-- Bootstrap -->
   <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
