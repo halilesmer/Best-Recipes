@@ -5,23 +5,39 @@ const cardRow = document.querySelector("#card-lists .row");
 console.log("cardRow: ", cardRow);
 
 
+
 for (let i = 0; i < data.length; i++) {
   cardRow.insertAdjacentHTML(
     "afterbegin",
     `
     <div class="col">
           <div class="card" style="width: 18rem;"">
-          <img src="${data[i].image}" class="card-img-top" alt="...">
+
+            <div class="image-wrapper hover01 column">
+              <figure><img src="${
+                data[i].image
+              }" class="card-img-top" alt="...">
+              </figure>
+            </div>
+
             <div class="card-body">
               <h3 class="card-title">${data[i].title}</h3>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">An item</li>
-            
-            </ul>
-            <div class="card-body">
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
+            <div class="list-group list-group-flush">
+              <i class="fa fa-star checked"></i>
+              <i class="fa fa-star checked"></i>
+              <i class="fa fa-star checked"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <div class="list-group list-group-flush">
+               <i class="fa-solid fa-clock"></i>
+<span>  ${
+      recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
+    }  Min</span>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="#" class="card-link">Recipe Details</a>
             </div>
         </div>
    </div>
