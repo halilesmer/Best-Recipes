@@ -80,3 +80,14 @@ footer{
     width: 100%;
 }
 
+.stepsListCon {
+    overflow: hidden;
+    height: 10rem;
+
+}
+.stepsListMore {
+  height: auto;
+
+}
+/* .stepsListLess {
+} */

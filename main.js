@@ -1,4 +1,4 @@
- const main = document.querySelector("main");
+const main = document.querySelector("main");
 const cardContainer = document.querySelector("#card-lists");
 
 const cardRow = document.querySelector("#card-lists .row");
@@ -37,7 +37,8 @@ for (let i = 0; i < data.length; i++) {
     }  Min</span>
             </div>
             <div class="list-group list-group-flush">
-              <a href="#" class="card-link">Recipe Details</a>
+              <a class="btn btn-outline-info card-link" href="#" role="button">Recipe Details</a>
+
             </div>
         </div>
    </div>
