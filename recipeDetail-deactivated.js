@@ -1,115 +1,30 @@
-const data = findByIngredientsData;
+const fetchIngredientsData = async () => {
+  // return new Promise((resolve, reject) => {
+  //   resolve("fetch data succeed");
 
-// const fetchData = async () => {
-//   let url =
-//     "https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e4735ab591743daacfbc5f29963e1aa&ingredients=chicken";
-//   // let url = './data/findByIngredients.js'
-//   console.log("url: ", url);
-//   try {
-//     const response = await fetch(url);
-//     const result = await response.json();
-//     console.log("result: ", result);
-//     cards(result);
-//   } catch (error) {
-//     console.log("error: ", error);
-//   }
-// };
-// fetchData();
-const cards = (data) => {
+  //   reject("data not available");
+  // });
+  let url =
+    "https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e4735ab591743daacfbc5f29963e1aa&ingredients=chicken";
 
-  const cardContainer = document.querySelector("#card-lists");
-
-  const cardRow = document.querySelector("#card-lists .row");
-
-  for (let i = 0; i < data.length; i++) {
-    cardRow.insertAdjacentHTML(
-      "afterbegin",
-      `
-    <div class="col">
-          <div class="card" style="width: 18rem;"">
-
-            <div class="image-wrapper hover01 column">
-              <figure><img src="${
-                data[i].image
-              }" class="card-img-top" alt="...">
-              </figure>
-            </div>
-
-            <div class="card-body">
-              <h3 class="card-title">${data[i].title}</h3>
-            </div>
-            <div class="list-group list-group-flush">
-              <i class="fa fa-star checked"></i>
-              <i class="fa fa-star checked"></i>
-              <i class="fa fa-star checked"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="list-group list-group-flush">
-               <i class="fa-solid fa-clock"></i>
-<span>  ${
-        recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
-      }  Min</span>
-            </div>
-            <div class="list-group list-group-flush">
-              <a class="btn btn-outline-info card-link" href="#" role="button">Recipe Details</a>
-
-            </div>
-        </div>
-   </div>
-    
-
-    `
-    );
-  }
-
-  function myFunction() {
-    const input = document.getElementById("searchInput").value.toUpperCase();
-    console.log("input: ", input);
-
-    const cards = cardContainer.getElementsByClassName("col");
-    console.log("cards: ", cards);
-
-    for (let i = 0; i < cards.length; i++) {
-      let title = cards[i].querySelector(".card-body h3.card-title");
-
-      if (title.innerText.toUpperCase().indexOf(input) > -1) {
-        cards[i].style.display = "";
-      } else {
-        cards[i].style.display = "none";
-      }
-    }
-  }
-
-  /* Open the Recipe Details Site */
-  cardContainer.addEventListener("click", () => {
-    recipeDetailsEventListener(data)
-
-  });
-
+  const response = await fetch(url);
+  const result = await response.json();
+  console.log(result);
 };
 
-/* Recipe Details Site -------------------------------- */
+try {
+  fetchIngredientsData().then((result) => {
+    recipeDetailsEventListener(result);
+  });
+} catch (error) {
+  console.log("error: ", error);
+}
 
-// const fetchIngredientsData = async () => {
-//   let url =
-//     "https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e4735ab591743daacfbc5f29963e1aa&ingredients=chicken";
-
-//   try {
-//     const response = await fetch(url);
-//     const result = await response.json();
-//     console.log(result);
-//     recipeDetailsEventListener(result);
-//   } catch (error) {
-//     console.log("error: ", error);
-//   }
-// };
-// fetchIngredientsData();
-
-const recipeDetailsEventListener = (data) => {
-  const cardContainer = document.querySelector(".card-container");
-
+const recipeDetailsEventListener = () => {
+  cardContainer.addEventListener("click", () => {
     cardContainer.classList.add("makeDisplayNone");
+
+    //   console.log("data: ", recipeDetail);
 
     /* --- Selected Elements --- */
     const main = document.querySelector("main");
@@ -246,6 +161,7 @@ const recipeDetailsEventListener = (data) => {
       }
       showMoreFunc();
     }
+  });
 };
 
 // fetchData
@@ -262,32 +178,82 @@ const recipeDetailsEventListener = (data) => {
 
 // Show more or less textes ---------------------------
 
+function myFunction() {
+  document.querySelector(".stepsListCon").classList.toggle("stepsListMore");
+  console.log("buttonListener");
+}
+
+// const button = document.querySelector(".stepsListCon button");
+//    let showMoreBtn = document.querySelector(".nav-item");
+//    console.log("showMoreBtn: ", showMoreBtn);
+
+// showMoreBtn.addEventListener("click", myFunction);
+
 const showMoreFunc = () => {
   let showMoreBtn = document.getElementById("showMoreBtn");
+  console.log("showMoreBtn: ", showMoreBtn);
 
-  showMoreBtn.addEventListener("click", () => {
-    document.querySelector(".stepsListCon").classList.toggle("stepsListMore");
-
-    console.log(
-      "showMoreBtn.classList",
-      document.querySelector(".stepsListCon").classList
-    );
-    const stepsListCon = document.querySelector(".stepsListCon");
-
-    // --- Show more or less textes at the bottom
-    stepsListCon.classList.contains("stepsListMore")
-      ? (showMoreBtn.textContent = "Show Less")
-      : (showMoreBtn.textContent = "Show More");
-  });
-
-  // if (showMoreBtn) {
-  //   showMoreBtn.addEventListener("click", () => {
-  //     document.querySelector(".stepsListCon").classList.toggle("stepsListMore");
-
-  //   });
-  // } else {
-  //   console.log("test");
-  // }
+  if (showMoreBtn) {
+    console.log(showMoreBtn);
+    showMoreBtn.addEventListener("click", myFunction);
+  } else {
+    console.log("test");
+  }
 };
 
-cards(data)
+// moreButton.addEventListener('click', () => {
+//   const textCon = document.querySelector(".stepsListCon");
+//   textCon.classList.toggle("stepsListMore");
+// })
+
+// <main class="row justify-content-md-center mt-3 mb-2 reripeMainContainer">
+
+//     <div class="col col-md-6 recipeImageCon">
+//       <img src=${recipeDetail.image} alt="mainImage" />
+//     </div>
+
+//     <div class="col col-md-6 recipeTextCon">
+//       <div class="recipeHeader">
+//         <h1>${recipeDetail.title}</h1>
+//       </div>
+//       <div class="preparationTimeCon">
+//         <div class="timeIcon">
+//           <i class="fa-solid fa-clock"></i>
+//         </div>
+
+//         <div class="timeText">
+//           <p class="bold">Make it in: 35 minutes</p>
+//         </div>
+//       </div>
+//       <div class="description">
+//         <p itemprop="description" class="semibold">
+//           Jazzed up with chocolate, these holiday gingerbread cookies are
+//           sweet, spicy and FLAMIN' HOT<sup>®</sup>!
+//         </p>
+//       </div>
+//       <div class="block recipeIngredientsCon">
+//         <div class="subtitle">
+//           <h2>Ingredients</h2>
+//         </div>
+//       </div>
+
+//        <div class="block stepsCon">
+//         <div class="subtitle">
+//           <h2>Steps</h2>
+//         </div>
+//       </div>
+
+//       <div class="parent-btn to-share-container">
+//         <div class="to-share-text">
+//           <p class="bold hide-mobile">Share This Recipe</p>
+//         </div>
+
+//         <i class="fa-brands fa-thin fa-user fa-whatsapp-square"></i>
+
+//         <i class="fa-solid fa-envelope"></i>
+//       </div>
+//     </div>
+//   </main>
+
+// `
+//   );

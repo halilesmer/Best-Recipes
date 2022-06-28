@@ -1,4 +1,4 @@
-const data = [
+const findByIngredientsData = [
   {
     id: 640803,
     title: "Crispy Buttermilk Fried Chicken",
