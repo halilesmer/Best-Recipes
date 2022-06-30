@@ -44,7 +44,6 @@ const deleteFilterButton = (data) => {
   deleteFilterButton.addEventListener("click", () => {
     cards(data);
     window.location.reload();
-    console.log("searchInput.value", searchInput.value);
   });
 };
 
