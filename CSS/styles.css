@@ -4,8 +4,9 @@ html * {
   color: black;
   font-family: "OpenSans", sans-serif;
 }
-.container{
-      padding-bottom: 7rem;
+
+.container {
+  padding-bottom: 7rem;
 
 }
 
@@ -14,6 +15,7 @@ html * {
   font-size: 20px;
   width: 10%;
 }
+
 /* .indexMainContainer img {
   height: 100%;
   position: relative;
@@ -22,11 +24,20 @@ html * {
 } */
 .searchContainer form {
   outline: solid lightseagreen 2px;
-       padding: 5px;
+  padding: 5px;
 
-    border-radius: 5px;
+  border-radius: 5px;
 }
-.form-check-input
-.label.form-check-label{
+
+.form-check-input .label.form-check-label {
   cursor: pointer;
+}
+
+.input-group.mb-3.input-filter {
+  justify-content: center;
+}
+
+#searchInput {
+  width: 100%;
+  margin: 1rem;
 }
