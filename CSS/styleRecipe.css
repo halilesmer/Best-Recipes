@@ -12,6 +12,11 @@
   width: 85%;
   margin: 0 auto;
 }
+
+.arrow-left{
+  /* border: solid 1px black; */
+  margin-bottom: 10px;
+}
 .recipeImageCon {
   position: relative;
   z-index: 1;

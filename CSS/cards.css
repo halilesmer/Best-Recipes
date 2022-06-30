@@ -8,6 +8,11 @@
     padding-bottom: 0px;
 
 }
+
+#card-lists .row .col{
+	margin: 10px auto 10px auto;
+}
+
 .list-group-flush .checked {
   color: orange;
   padding: 0;

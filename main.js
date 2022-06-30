@@ -13,17 +13,33 @@ const fetchIngredientsDatas = async () => {
 const controller = async () => {
   try {
     const data = await fetchIngredientsDatas();
-    // if the data not reachable, than use local data
-    if (data === undefined) cards(localIngredientsData);
-
     console.log("data: ", data);
+
+    // if the data not reachable, than use local data
+    data === undefined
+      ? cards(localIngredientsData)
+      : cards(data)
+
+
+
+
+    searchFunc()
+
+
+
   } catch (error) {
     console.log("error: ", error);
   }
+
+
+
 };
 
+
+
+
 const cards = (data) => {
-  const cardContainer = document.querySelector("#card-lists");
+  const cardContainer = document.querySelector(".card-container");
 
   const cardRow = document.querySelector("#card-lists .row");
 
@@ -35,9 +51,8 @@ const cards = (data) => {
           <div class="card" style="width: 18rem;"">
 
             <div class="image-wrapper hover01 column">
-              <figure><img src="${
-                data[i].image
-              }" class="card-img-top" alt="...">
+              <figure><img src="${data[i].image
+      }" class="card-img-top" alt="...">
               </figure>
             </div>
 
@@ -53,8 +68,7 @@ const cards = (data) => {
             </div>
             <div class="list-group list-group-flush">
                <i class="fa-solid fa-clock"></i>
-<span>  ${
-        recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
+<span>  ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
       }  Min</span>
             </div>
             <div class="list-group list-group-flush">
@@ -68,57 +82,111 @@ const cards = (data) => {
     `
     );
   }
+  searchFunc()
 
-  function myFunction() {
-    const input = document.getElementById("searchInput").value.toUpperCase();
-    console.log("input: ", input);
 
-    const cards = cardContainer.getElementsByClassName("col");
-    console.log("cards: ", cards);
-
-    for (let i = 0; i < cards.length; i++) {
-      let title = cards[i].querySelector(".card-body h3.card-title");
-
-      if (title.innerText.toUpperCase().indexOf(input) > -1) {
-        cards[i].style.display = "";
-      } else {
-        cards[i].style.display = "none";
-      }
-    }
-  }
-
-  /* Open the Recipe Details Site */
   cardContainer.addEventListener("click", () => {
     recipeDetailsEventListener(data);
   });
+
 };
 
-/* Recipe Details Site -------------------------------- */
+function searchFunc() {
+  const cardContainer = document.querySelector(".card-container");
+  const cardLists = document.querySelector("#card-lists");
+  const input = document.getElementById("searchInput").value.toUpperCase();
+  console.log("input: ", input);
 
-const fetchIngredientsData = async () => {
-  let url =
-    "https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e4735ab591743daacfbc5f29963e1aa&ingredients=chicken";
+  const cards = cardLists.getElementsByClassName("col");
 
-  try {
-    const response = await fetch(url);
-    const result = await response.json();
-    console.log(result);
-    recipeDetailsEventListener(result);
-  } catch (error) {
-    console.log("error: ", error);
+  const warningParagr = document.createElement('p');
+  warningParagr.innerText = ''
+  cardContainer.appendChild(warningParagr)
+
+  console.log('test', !'Buffalo Chicken Wings Wonton Wraps'.toUpperCase().includes(input))
+
+
+  for (let i = 0; i < cards.length; i++) {
+    let title = cards[i].querySelector(".card-body h3.card-title");
+
+    if (title.innerText.toUpperCase().indexOf(input) > -1) {
+      cards[i].style.display = "";
+      console.log('if')
+    } else {
+      cards[i].style.display = "none";
+      console.log('else', cards.length)
+    }
   }
-};
-// fetchIngredientsData();
+
+  // if (!(title.textContent.toUpperCase().includes(input)) && (input.length > 0)) {
+  //   console.log('else if')
+  //   warningParagr.innerText = ''
+
+  //   warningParagr.innerText = 'no results found. please try another search'.toUpperCase()
+  //   cardContainer.appendChild(warningParagr)
+  // }
+  //  else if ((title.innerText.toUpperCase() === input) && (input.length > 0)) {
+  //   console.log('else if')
+  //   warningParagr.innerText = ''
+  //   cardContainer.appendChild(warningParagr)
+  // } 
+}
+
+
+
+  /* works welll!!! /// searchFunc()*/
+  // const cardContainer = document.querySelector(".card-container");
+  // const cardLists = document.querySelector("#card-lists");
+  // const input = document.getElementById("searchInput").value.toUpperCase();
+  // console.log("input: ", input);
+
+  // const cards = cardLists.getElementsByClassName("col");
+
+  // const warningParagr = document.createElement('p');
+  // warningParagr.innerText = '' 
+  // cardContainer.appendChild(warningParagr)
+
+  // console.log('test', !'Buffalo Chicken Wings Wonton Wraps'.toUpperCase().includes(input))
+
+
+  // for (let i = 0; i < cards.length; i++) {
+  //   let title = cards[i].querySelector(".card-body h3.card-title");
+
+  //   if (title.innerText.toUpperCase().indexOf(input) > -1) {
+  //     cards[i].style.display = "";
+  //     console.log('if')
+  //   }  else {
+  //     cards[i].style.display = "none";
+  //     console.log('else', cards.length)
+  //   }
+  // }
+
+
+
+
+
+
+/* Open the Recipe Details Site */
 
 const recipeDetailsEventListener = (data) => {
   const cardContainer = document.querySelector(".card-container");
-
   cardContainer.classList.add("makeDisplayNone");
+
+  const mainContainer = document.querySelector("main");
+  mainContainer.classList.remove("makeDisplayNone");
+
+
 
   /* --- Selected Elements --- */
   const main = document.querySelector("main");
 
   /* --- Created Elements --- */
+  const recipeDetailsCon = document.createElement('div');
+
+  const backButtonDiv = document.createElement('div');
+  const arrowLeftIcon = document.createElement("i");
+  const backButton = document.createElement("button");
+
   const recipeImageCon = document.createElement("div");
   const recipeTextCon = document.createElement("div");
   const recipeHeader = document.createElement("div");
@@ -147,6 +215,11 @@ const recipeDetailsEventListener = (data) => {
 
   const moreButton = document.createElement("button");
   /* --- Set Attributes --- */
+  recipeDetailsCon.setAttribute('class', 'row justify-content-md-center mt-3 mb-2 indexMainContainer' )
+
+  backButtonDiv.setAttribute('class', 'arrow-left')
+  backButton.setAttribute('class', 'btn btn-primary btn-sm');
+  arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
 
   recipeImageCon.setAttribute("class", "col col-md-4 recipeImageCon");
 
@@ -175,6 +248,8 @@ const recipeDetailsEventListener = (data) => {
   moreButton.setAttribute("id", "showMoreBtn");
 
   //-- Textcontent ----
+  backButton.textContent = 'Back';
+
   recipeH1.textContent = recipeDetail.title;
   timeTextP.innerText = "Make it in: 35 minutes";
   IngredientsSubtitleH2.innerText = "Ingredients";
@@ -184,11 +259,18 @@ const recipeDetailsEventListener = (data) => {
   moreButton.innerText = "Show More";
 
   /* --- Appendchild --- */
-  main.appendChild(recipeImageCon);
+  main.appendChild(recipeDetailsCon);
+
+  recipeDetailsCon.appendChild(backButtonDiv);
+  backButtonDiv.appendChild(backButton);
+  backButtonDiv.appendChild(arrowLeftIcon);
+  
+  recipeDetailsCon.appendChild(recipeImageCon);
+  
 
   recipeImageCon.appendChild(mainImg);
 
-  main.appendChild(recipeTextCon);
+  recipeDetailsCon.appendChild(recipeTextCon);
   recipeTextCon.appendChild(recipeHeader);
   recipeHeader.appendChild(recipeH1);
 
@@ -250,19 +332,21 @@ const recipeDetailsEventListener = (data) => {
     }
     showMoreFunc();
   }
+
+backButton.addEventListener('click', goHome)
 };
 
-// fetchData
-//   .then(data => console.log('promisdata', data))
+const goHome =()=>{
+  const cardContainer = document.querySelector(".card-container");
+  const mainContainer = document.querySelector("main");
 
-// const fetchData = async () => {
-//   try {
-//     const data = await fetch("./data/data.js");
-//     console.log("data: ", data);
-//   } catch (error) {
-//     console.log("error: ", error);
-//   }
-// };
+  console.log('goHome')
+  mainContainer.classList.add("makeDisplayNone");
+  cardContainer.classList.remove("makeDisplayNone");
+  // cardContainer.classList.add("makeDisplayNone");
+
+}
+
 
 // Show more or less textes ---------------------------
 
