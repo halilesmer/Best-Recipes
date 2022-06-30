@@ -63,9 +63,8 @@ const cards = (data) => {
             <div class="card" style="width: 18rem;"">
   
               <div class="image-wrapper hover01 column">
-                <figure><img src="${
-                  data[i].image
-                }" class="card-img-top" alt="...">
+                <figure><img src="${data[i].image
+        }" class="card-img-top" alt="...">
                 </figure>
               </div>
   
@@ -81,9 +80,8 @@ const cards = (data) => {
               </div>
               <div class="list-group list-group-flush">
                  <i class="fa-solid fa-clock"></i>
-  <span>  ${
-    recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
-  }  Min</span>
+  <span>  ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
+        }  Min</span>
               </div>
               <div class="list-group list-group-flush">
                 <a class="btn btn-outline-info card-link" href="#" role="button">Recipe Details</a>
@@ -124,7 +122,7 @@ function searchFunc(data) {
 function checkBoxLikes(data) {
   const checkBLikes = document.querySelector("#checkBoxLikes");
   const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel")
-  
+
   checkBLikes.addEventListener("click", (e) => {
     const isChecked = e.target.checked;
 
@@ -145,12 +143,12 @@ function checkBoxLikes(data) {
       sortCheckBoxLabel.innerHTML = 'Sort by Likes';
 
       sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-      sortCheckBoxLabel.insertAdjacentHTML('beforeend', 
-      `  <i class="fa-solid fa-arrow-down-1-9"></i>`)
+      sortCheckBoxLabel.insertAdjacentHTML('beforeend',
+        `  <i class="fa-solid fa-arrow-down-1-9"></i>`)
     } else {
       sortCheckBoxLabel.innerHTML = '';
       sortCheckBoxLabel.innerHTML = 'Sort by Likes';
-     
+
       sortedData = sortedData.sort((a, b) => b.likes - a.likes);
       sortCheckBoxLabel.insertAdjacentHTML('beforeend',
         `  <i class="fa-solid fa-arrow-up-9-1"></i>`)
@@ -163,11 +161,13 @@ function checkBoxLikes(data) {
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (data) => {
-  const card = document.querySelector(".card");
-
-  card.addEventListener("click", () => {
-    recipeDetails(data);
+  document.querySelectorAll(".card").forEach(item => {
+    item.addEventListener("click", () => {
+      recipeDetails(data);
+    });
   });
+
+
 };
 /* Recipe Details Site */
 
