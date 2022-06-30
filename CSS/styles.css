@@ -24,7 +24,7 @@ html * {
 } */
 .searchContainer form {
   outline: solid lightseagreen 2px;
-  padding: 5px;
+  padding: 1px;
 
   border-radius: 5px;
 }
@@ -41,3 +41,26 @@ html * {
   width: 100%;
   margin: 1rem;
 }
+
+ .fa-arrow-down-1-9:before {
+  color: aliceblue;
+  font-size: 1.2rem;
+      font-weight: 600;
+}
+
+.fa-arrow-down-1-9:before {
+  color: aliceblue;
+  font-size: 1.2rem;
+}
+.fa-arrow-up-9-1:before,
+.fa-sort-numeric-up-alt:before {
+  color: rgb(17, 43, 66);
+    font-size: 1.2rem;
+}
+
+
+
+
+
+
+

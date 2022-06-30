@@ -119,11 +119,12 @@ function searchFunc(data) {
   });
 }
 
-/* ------- Searching recipes by checkboxing ------------ */
+/* ------- Sorting recipes by checkboxing ------------ */
 
 function checkBoxLikes(data) {
   const checkBLikes = document.querySelector("#checkBoxLikes");
-
+  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel")
+  
   checkBLikes.addEventListener("click", (e) => {
     const isChecked = e.target.checked;
 
@@ -140,10 +141,21 @@ function checkBoxLikes(data) {
     });
 
     if (isChecked) {
+      sortCheckBoxLabel.innerHTML = '';
+      sortCheckBoxLabel.innerHTML = 'Sort by Likes';
+
       sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+      sortCheckBoxLabel.insertAdjacentHTML('beforeend', 
+      `  <i class="fa-solid fa-arrow-down-1-9"></i>`)
     } else {
+      sortCheckBoxLabel.innerHTML = '';
+      sortCheckBoxLabel.innerHTML = 'Sort by Likes';
+     
       sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+      sortCheckBoxLabel.insertAdjacentHTML('beforeend',
+        `  <i class="fa-solid fa-arrow-up-9-1"></i>`)
     }
+
     console.log("sortedData: ", sortedData);
     cards(sortedData);
   });
