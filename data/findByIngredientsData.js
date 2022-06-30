@@ -443,7 +443,7 @@ const findByIngredientsData = [
       },
     ],
     unusedIngredients: [],
-    likes: 1,
+    likes: 10,
   },
   {
     id: 645879,
@@ -684,6 +684,6 @@ const findByIngredientsData = [
       },
     ],
     unusedIngredients: [],
-    likes: 1,
+    likes: 22,
   },
 ];

@@ -1,91 +1,86 @@
-.card{
-        margin: auto;
-
+.card {
+  margin: auto;
 }
-.card-body{
-        text-align: center;
-    padding: 1rem 0.1rem;
-    padding-bottom: 0px;
-
+.card-body {
+  text-align: center;
+  padding: 1rem 0.1rem;
+  padding-bottom: 0px;
 }
 
-#card-lists .row .col{
-	margin: 10px auto 10px auto;
+#card-lists .row .col {
+  margin: 10px auto 10px auto;
 }
 
 .list-group-flush .checked {
   color: orange;
   padding: 0;
 }
-.card-container .list-group-flush{
-display: flex;
-    flex-direction: unset;
-     margin: 3px 0 0 0;
-     justify-content: space-evenly;
-    align-items: center;
-
+.card-container .list-group-flush {
+  display: flex;
+  flex-direction: unset;
+  margin: 3px 0 0 0;
+  justify-content: space-evenly;
+  align-items: center;
 }
-.card-title{
-      font-weight: bold;
+.card-title {
+  font-weight: bold;
 }
-.makeDisplayNone{
+.makeDisplayNone {
   display: none;
 }
 
 #card-lists .row h2 {
-    text-align: center;
-    background: antiquewhite;
-    font-size: larger;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+  text-align: center;
+  background: antiquewhite;
+  font-size: larger;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  margin: 2rem auto 2rem auto;
+      border: #ff9800 solid;
+
 }
 
 /* Hover effect starts */
 figure {
-	width: 300px;
-	height: 200px;
-	margin: 0;
-	padding: 0;
-	background: #fff;
-	overflow: hidden;
+  width: 300px;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  overflow: hidden;
 }
-
-
-
 
 /* Zoom In #1 */
 .image-wrapper figure img {
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .image-wrapper figure:hover img {
-	-webkit-transform: scale(1.3);
-	transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
 }
 
 /* Zoom Out #1 */
 
-
 @-webkit-keyframes flash {
-	0% {
-		opacity: .4;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes flash {
-	0% {
-		opacity: .4;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 /* Hover effect ends */
-
 
 /* 
 .card .image-wrapper{
@@ -95,10 +90,9 @@ figure {
 
     
 } */
- .card img,
+.card img,
 .card h3,
 .card li,
-a:hover{
-
+a:hover {
   cursor: pointer;
-} 
+}

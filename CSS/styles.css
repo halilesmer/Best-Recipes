@@ -26,3 +26,7 @@ html * {
 
     border-radius: 5px;
 }
+.form-check-input
+.label.form-check-label{
+  cursor: pointer;
+}

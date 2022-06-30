@@ -22,6 +22,7 @@ const controller = async () => {
     cards(data);
     recipeDetailsEventListener(data);
     searchFunc(data);
+    checkBoxLikes(data);
   } catch (error) {
     console.log("error: ", error);
   }
@@ -29,22 +30,17 @@ const controller = async () => {
 
 const cards = (data) => {
   const dataLength = data.length;
-  console.log("dataLength: ", dataLength);
-  const cardContainer = document.querySelector(".card-container");
-  console.log("cardContainer: ", cardContainer);
-  
+  // const cardContainer = document.querySelector(".card-container");
 
   const cardRow = document.querySelector("#card-lists .row");
   /* first delete the content of card elements */
   cardRow.innerHTML = "";
 
-
-
   if (dataLength >= 1) {
-        for (let i = 0; i < data.length; i++) {
-          cardRow.insertAdjacentHTML(
-            "afterbegin",
-            `
+    for (let i = 0; i < data.length; i++) {
+      cardRow.insertAdjacentHTML(
+        "afterbegin",
+        `
       <div class="col">
             <div class="card" style="width: 18rem;"">
   
@@ -80,52 +76,74 @@ const cards = (data) => {
       
   
       `
-          );
-        }
+      );
+    }
+  } else {
+    const warningParagr = document.createElement("h2");
 
+    warningParagr.innerText =
+      "no results found. please try another search".toUpperCase();
+    cardRow.appendChild(warningParagr);
+  }
+};
 
-      } else {
-        console.log("else");
-
-        const warningParagr = document.createElement("h2");
-
-        warningParagr.innerText =
-          "no results found. please try another search".toUpperCase();
-        cardRow.appendChild(warningParagr);
-      }
-  
-  
-  
-  
-    };
-  
-
+/* ------- Searching recipes by typing ------------ */
 function searchFunc(data) {
   const input = document.getElementById("searchInput");
 
   return input.addEventListener("input", (e) => {
     /* multiple spaces trimmed */
     let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
-    console.log("inputValue: ", inputValue);
-
     const searchResult = data.filter((item) =>
       item.title.toUpperCase().includes(inputValue)
     );
     return cards(searchResult);
   });
- 
 }
 
+/* ------- Searching recipes by checkboxing ------------ */
+
+function checkBoxLikes(data) {
+  const checkBLikes = document.querySelector("#checkBoxLikes");
+
+  const checked = document.querySelector("#checkBoxLikes:checked") !== null;
+
+  checkBLikes.addEventListener("click", (e) => {
+    const isChecked = e.target.checked;
+
+    // let checkboxes = document.querySelector('checkBLikes[value="color"]:checked');
+    // console.log("checkboxes: ", checkboxes);
+
+    checkBLikes.value;
+
+    let sortedData = [];
+
+        data.forEach((item) => {
+          sortedData.push(item)
+          item
+
+        });
+    
+    if (isChecked) {
+     sortedData= sortedData.sort((a, b) => a.likes - b.likes);
+    } else {
+    sortedData=  sortedData.sort((a, b) => b.likes - a.likes);
+      
+    }
+    console.log("sortedData: ", sortedData);
+cards(sortedData)
+   
+  });
+}
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (data) => {
-  
   const card = document.querySelector(".card");
-    
-      card.addEventListener("click", () => {
-        recipeDetails(data);
-      });
-}
+
+  card.addEventListener("click", () => {
+    recipeDetails(data);
+  });
+};
 /* Recipe Details Site */
 
 const recipeDetails = (data) => {
@@ -260,7 +278,6 @@ const recipeDetails = (data) => {
   // ------  Ingredients List - ------
   for (let x = 0; x < data.length; x++) {
     for (let y = 0; y < data[x].usedIngredients.length; y++) {
-      console.log("y", y);
       IngredientsOl.innerHTML = ` <li>
               ${data[x].usedIngredients[y].amount}
               ${data[x].usedIngredients[y].unit}
@@ -314,10 +331,6 @@ const showMoreFunc = () => {
   showMoreBtn.addEventListener("click", () => {
     document.querySelector(".stepsListCon").classList.toggle("stepsListMore");
 
-    console.log(
-      "showMoreBtn.classList",
-      document.querySelector(".stepsListCon").classList
-    );
     const stepsListCon = document.querySelector(".stepsListCon");
 
     // --- Show more or less textes at the bottom
