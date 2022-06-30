@@ -10,6 +10,7 @@ const fetchIngredientsDatas = async () => {
   console.log("result: ", result);
 };
 
+/* ------- Controller ----- */
 const controller = async () => {
   try {
     const data =
@@ -19,6 +20,7 @@ const controller = async () => {
     console.log("data: ", data);
 
     // cards(data);
+    deleteFilterButton(data);
     cards(data);
     recipeDetailsEventListener(data);
     searchFunc(data);
@@ -28,9 +30,26 @@ const controller = async () => {
   }
 };
 
+/* Reseting/ deleting the actuell filters */
+const deleteFilterButton = (data) => {
+  const inputGroup = document.querySelector(".input-group");
+  const deleteFilterButton = document.createElement("button");
+
+  deleteFilterButton.innerText = "Delete Filter";
+  deleteFilterButton.setAttribute("class", "btn btn-secondary");
+  deleteFilterButton.setAttribute("type", "button");
+
+  inputGroup.appendChild(deleteFilterButton);
+
+  deleteFilterButton.addEventListener("click", () => {
+    cards(data);
+    window.location.reload();
+    console.log("searchInput.value", searchInput.value);
+  });
+};
+
 const cards = (data) => {
   const dataLength = data.length;
-  // const cardContainer = document.querySelector(".card-container");
 
   const cardRow = document.querySelector("#card-lists .row");
   /* first delete the content of card elements */
@@ -89,9 +108,9 @@ const cards = (data) => {
 
 /* ------- Searching recipes by typing ------------ */
 function searchFunc(data) {
-  const input = document.getElementById("searchInput");
+  const searchInput = document.getElementById("searchInput");
 
-  return input.addEventListener("input", (e) => {
+  return searchInput.addEventListener("input", (e) => {
     /* multiple spaces trimmed */
     let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
     const searchResult = data.filter((item) =>
@@ -106,8 +125,6 @@ function searchFunc(data) {
 function checkBoxLikes(data) {
   const checkBLikes = document.querySelector("#checkBoxLikes");
 
-  const checked = document.querySelector("#checkBoxLikes:checked") !== null;
-
   checkBLikes.addEventListener("click", (e) => {
     const isChecked = e.target.checked;
 
@@ -118,21 +135,18 @@ function checkBoxLikes(data) {
 
     let sortedData = [];
 
-        data.forEach((item) => {
-          sortedData.push(item)
-          item
+    data.forEach((item) => {
+      sortedData.push(item);
+      item;
+    });
 
-        });
-    
     if (isChecked) {
-     sortedData= sortedData.sort((a, b) => a.likes - b.likes);
+      sortedData = sortedData.sort((a, b) => a.likes - b.likes);
     } else {
-    sortedData=  sortedData.sort((a, b) => b.likes - a.likes);
-      
+      sortedData = sortedData.sort((a, b) => b.likes - a.likes);
     }
     console.log("sortedData: ", sortedData);
-cards(sortedData)
-   
+    cards(sortedData);
   });
 }
 
