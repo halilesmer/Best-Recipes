@@ -20,6 +20,7 @@ const controller = async () => {
     console.log("data: ", data);
 
     // cards(data);
+
     deleteFilterButton(data);
     cards(data);
     recipeDetailsEventListener(data);
@@ -30,12 +31,76 @@ const controller = async () => {
   }
 };
 
+/* ------- Searching recipes by typing ------------ */
+function searchFunc(data) {
+  const searchInput = document.getElementById("searchInput");
+
+  return searchInput.addEventListener("input", (e) => {
+    /* multiple spaces trimmed */
+    let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
+
+    const searchResult = data.filter((item) =>
+      item.title.toUpperCase().includes(inputValue)
+    );
+    return cards(searchResult);
+  });
+}
+
+/* ------- Sorting recipes by checkboxing ------------ */
+
+function checkBoxLikes(data) {
+  const checkBLikes = document.querySelector("#checkBoxLikes");
+  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
+
+  checkBLikes.addEventListener("click", (e) => {
+    const isChecked = e.target.checked;
+
+    // let checkboxes = document.querySelector('checkBLikes[value="color"]:checked');
+    // console.log("checkboxes: ", checkboxes);
+
+    checkBLikes.value;
+
+    let sortedData = [];
+
+    data.forEach((item) => {
+      sortedData.push(item);
+      item;
+    });
+
+    if (isChecked) {
+      sortCheckBoxLabel.innerHTML = "";
+      sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+      sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+      sortCheckBoxLabel.insertAdjacentHTML(
+        "beforeend",
+        `  <i class="fa-solid fa-arrow-down-1-9"></i>`
+      );
+    } else {
+      sortCheckBoxLabel.innerHTML = "";
+      sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+      sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+      sortCheckBoxLabel.insertAdjacentHTML(
+        "beforeend",
+        `  <i class="fa-solid fa-arrow-up-9-1"></i>`
+      );
+    }
+
+    console.log("sortedData: ", sortedData);
+    cards(sortedData);
+  });
+}
+
 /* Reseting/ deleting the actuell filters */
 const deleteFilterButton = (data) => {
+  const searchInput = document.querySelector("#searchInput").value;
+  console.log("searchInput: ", searchInput);
+
   const inputGroup = document.querySelector(".input-group");
   const deleteFilterButton = document.createElement("button");
 
-  deleteFilterButton.innerText = "Delete Filter";
+  deleteFilterButton.innerText = "Delete Filters";
   deleteFilterButton.setAttribute("class", "btn btn-secondary");
   deleteFilterButton.setAttribute("type", "button");
 
@@ -63,8 +128,9 @@ const cards = (data) => {
             <div class="card" style="width: 18rem;"">
   
               <div class="image-wrapper hover01 column">
-                <figure><img src="${data[i].image
-        }" class="card-img-top" alt="...">
+                <figure><img src="${
+                  data[i].image
+                }" class="card-img-top" alt="...">
                 </figure>
               </div>
   
@@ -80,8 +146,9 @@ const cards = (data) => {
               </div>
               <div class="list-group list-group-flush">
                  <i class="fa-solid fa-clock"></i>
-  <span>  ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
-        }  Min</span>
+  <span>  ${
+    recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
+  }  Min</span>
               </div>
               <div class="list-group list-group-flush">
                 <a class="btn btn-outline-info card-link" href="#" role="button">Recipe Details</a>
@@ -103,71 +170,13 @@ const cards = (data) => {
   }
 };
 
-/* ------- Searching recipes by typing ------------ */
-function searchFunc(data) {
-  const searchInput = document.getElementById("searchInput");
-
-  return searchInput.addEventListener("input", (e) => {
-    /* multiple spaces trimmed */
-    let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
-    const searchResult = data.filter((item) =>
-      item.title.toUpperCase().includes(inputValue)
-    );
-    return cards(searchResult);
-  });
-}
-
-/* ------- Sorting recipes by checkboxing ------------ */
-
-function checkBoxLikes(data) {
-  const checkBLikes = document.querySelector("#checkBoxLikes");
-  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel")
-
-  checkBLikes.addEventListener("click", (e) => {
-    const isChecked = e.target.checked;
-
-    // let checkboxes = document.querySelector('checkBLikes[value="color"]:checked');
-    // console.log("checkboxes: ", checkboxes);
-
-    checkBLikes.value;
-
-    let sortedData = [];
-
-    data.forEach((item) => {
-      sortedData.push(item);
-      item;
-    });
-
-    if (isChecked) {
-      sortCheckBoxLabel.innerHTML = '';
-      sortCheckBoxLabel.innerHTML = 'Sort by Likes';
-
-      sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-      sortCheckBoxLabel.insertAdjacentHTML('beforeend',
-        `  <i class="fa-solid fa-arrow-down-1-9"></i>`)
-    } else {
-      sortCheckBoxLabel.innerHTML = '';
-      sortCheckBoxLabel.innerHTML = 'Sort by Likes';
-
-      sortedData = sortedData.sort((a, b) => b.likes - a.likes);
-      sortCheckBoxLabel.insertAdjacentHTML('beforeend',
-        `  <i class="fa-solid fa-arrow-up-9-1"></i>`)
-    }
-
-    console.log("sortedData: ", sortedData);
-    cards(sortedData);
-  });
-}
-
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (data) => {
-  document.querySelectorAll(".card").forEach(item => {
+  document.querySelectorAll(".card").forEach((item) => {
     item.addEventListener("click", () => {
       recipeDetails(data);
     });
   });
-
-
 };
 /* Recipe Details Site */
 
@@ -340,12 +349,10 @@ const recipeDetails = (data) => {
 
 const goHome = () => {
   const cardContainer = document.querySelector(".card-container");
-  const mainContainer = document.querySelector("main");
+  const indexMainContainer = document.querySelector(".indexMainContainer");
 
-  console.log("goHome");
-  mainContainer.classList.add("makeDisplayNone");
+  indexMainContainer.classList.add("makeDisplayNone");
   cardContainer.classList.remove("makeDisplayNone");
-  // cardContainer.classList.add("makeDisplayNone");
 };
 
 // Show more or less textes ---------------------------
