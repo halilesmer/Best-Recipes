@@ -39,7 +39,11 @@ html * {
 
 #searchInput {
   width: 100%;
-  margin: 1rem;
+  margin: 0.3rem;
+}
+
+.input-group.mb-3.input-filter {
+    margin-bottom: 0.2rem !important;
 }
 
  .fa-arrow-down-1-9:before {
@@ -58,13 +62,10 @@ html * {
     font-size: 1.2rem;
 }
 
-
-
-
-
-
-
-
 .makeDisplayNone {
   display: none;
+}
+
+footer .p-3 {
+    padding: 0.1rem!important;
 }

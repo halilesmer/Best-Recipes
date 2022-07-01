@@ -19,16 +19,21 @@ const controller = async () => {
         : localIngredientsData;
     console.log("data: ", data);
 
-    // cards(data);
-
     deleteFilterButton(data);
     cards(data);
-    recipeDetailsEventListener(data);
+    // recipeDetailsEventListener(data);
     searchFunc(data);
     checkBoxLikes(data);
   } catch (error) {
     console.log("error: ", error);
   }
+};
+const printData = (data) => {
+  console.log("printData: ", data);
+  // recipeDetailsEventListener(data);
+
+  checkBoxLikes(data);
+  cards(data);
 };
 
 /* ------- Searching recipes by typing ------------ */
@@ -42,10 +47,12 @@ function searchFunc(data) {
     const searchResult = data.filter((item) =>
       item.title.toUpperCase().includes(inputValue)
     );
-    return cards(searchResult);
+    // return cards(searchResult);
+
+    return printData(searchResult);
+    // return checkBoxLikes(searchResult);
   });
 }
-
 /* ------- Sorting recipes by checkboxing ------------ */
 
 function checkBoxLikes(data) {
@@ -54,12 +61,6 @@ function checkBoxLikes(data) {
 
   checkBLikes.addEventListener("click", (e) => {
     const isChecked = e.target.checked;
-
-    // let checkboxes = document.querySelector('checkBLikes[value="color"]:checked');
-    // console.log("checkboxes: ", checkboxes);
-
-    checkBLikes.value;
-
     let sortedData = [];
 
     data.forEach((item) => {
@@ -88,7 +89,9 @@ function checkBoxLikes(data) {
     }
 
     console.log("sortedData: ", sortedData);
-    cards(sortedData);
+    // cards(sortedData);
+    printData(sortedData);
+    // recipeDetailsEventListener(data);
   });
 }
 
@@ -112,6 +115,7 @@ const deleteFilterButton = (data) => {
   });
 };
 
+/* -------  Cards Lists ----------- */
 const cards = (data) => {
   const dataLength = data.length;
 
@@ -137,13 +141,11 @@ const cards = (data) => {
               <div class="card-body">
                 <h3 class="card-title">${data[i].title}</h3>
               </div>
-              <div class="list-group list-group-flush">
-                <i class="fa fa-star checked"></i>
-                <i class="fa fa-star checked"></i>
-                <i class="fa fa-star checked"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
+              <div class="list-group list-group-flush likes">
+               <span>${data[i].likes}</span>
+              <i class="fa-regular fa-heart checked"></i>      
+
+</div>
               <div class="list-group list-group-flush">
                  <i class="fa-solid fa-clock"></i>
   <span>  ${
@@ -168,18 +170,30 @@ const cards = (data) => {
       "no results found. please try another search".toUpperCase();
     cardRow.appendChild(warningParagr);
   }
+  recipeDetailsEventListener(data);
 };
+
+// <i class="fa fa-star checked"></i>
+// <i class="fa fa-star checked"></i>
+// <i class="fa fa-star checked"></i>
+// <i class="fa fa-star"></i>
+// <i class="fa fa-star"></i>
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (data) => {
+  console.log("recipeDetailsEventListener: Hallo ");
+  const card = document.querySelectorAll(".card");
+  console.log("card: ", card);
+
   document.querySelectorAll(".card").forEach((item) => {
     item.addEventListener("click", () => {
+      console.log("click eventListerner");
+
       recipeDetails(data);
     });
   });
 };
 /* Recipe Details Site */
-
 const recipeDetails = (data) => {
   const cardContainer = document.querySelector(".card-container");
   cardContainer.classList.add("makeDisplayNone");
@@ -227,7 +241,7 @@ const recipeDetails = (data) => {
   /* --- Set Attributes --- */
   recipeDetailsCon.setAttribute(
     "class",
-    "row justify-content-md-center mt-3 mb-2 indexMainContainer"
+    "row justify-content-md-center mt-3 mb-2 recipeDetailsCon"
   );
 
   backButtonDiv.setAttribute("class", "arrow-left");
@@ -349,10 +363,11 @@ const recipeDetails = (data) => {
 
 const goHome = () => {
   const cardContainer = document.querySelector(".card-container");
-  const indexMainContainer = document.querySelector(".indexMainContainer");
-
-  indexMainContainer.classList.add("makeDisplayNone");
   cardContainer.classList.remove("makeDisplayNone");
+
+  const recipeDetailsCon = document.querySelector(".recipeDetailsCon");
+  // recipeDetailsCon.classList.add("makeDisplayNone");
+  recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
 };
 
 // Show more or less textes ---------------------------
