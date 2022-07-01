@@ -13,14 +13,21 @@
 
 .list-group-flush .checked {
   color: orange;
+
   padding: 0;
 }
+
 .card-container .list-group-flush {
   display: flex;
   flex-direction: unset;
   margin: 3px 0 0 0;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+}
+.card-container .list-group-flush i,
+.card-container .list-group-flush .likes,
+.card-container .list-group-flush span{
+ margin: 5px;
 }
 .card-title {
   font-weight: bold;
@@ -36,7 +43,7 @@
   padding-top: 4rem;
   padding-bottom: 4rem;
   margin: 2rem auto 2rem auto;
-      border: #ff9800 solid;
+  border: #ff9800 solid;
 
 }
 
@@ -82,14 +89,6 @@ figure {
 }
 /* Hover effect ends */
 
-/* 
-.card .image-wrapper{
-    position: relative;
-    overflow: hidden;
-    will-change: transform;
-
-    
-} */
 .card img,
 .card h3,
 .card li,
