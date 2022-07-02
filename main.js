@@ -128,7 +128,7 @@ const cards = (data) => {
       cardRow.insertAdjacentHTML(
         "afterbegin",
         `
-      <div class="col">
+      <div class="col mt-3 mb-3">
             <div class="card" style="width: 18rem;"">
   
               <div class="image-wrapper hover01 column">
