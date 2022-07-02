@@ -129,7 +129,7 @@ const cards = (data) => {
         "afterbegin",
         `
       <div class="col mt-3 mb-3">
-            <div class="card" style="width: 18rem;"">
+            <div class="card">
   
               <div class="image-wrapper hover01 column">
                 <figure><img src="${

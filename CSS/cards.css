@@ -10,6 +10,8 @@
   border-bottom: unset;
   margin: 0 auto;
   height: 100%;
+  max-width: 18rem;
+  min-width: 16rem;
 }
 
 .card-body {
