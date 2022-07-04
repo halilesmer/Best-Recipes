@@ -1,8 +1,9 @@
-const localIngredientsData = findByIngredientsData;
+// const localIngredientsData = findByIngredientsData;
+const localIngredientsData = GroceryProductsData;
 
 const fetchIngredientsDatas = async () => {
   let url =
-    "https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e4735ab591743daacfbc5f29963e1aa&ingredients=chicken";
+    `https://api.spoonacular.com/food/products/search?number=100&query=pizza&addProductInformation=true&apiKey=99675d45f6a34d1ebbba0e30a2c17fa3`;
   // let url = './data/findByIngredients.js'
 
   const response = await fetch(url);
@@ -70,15 +71,18 @@ const cards = (data) => {
                 <h3 class="card-title">${data[i].title}</h3>
               </div>
               <div class="list-group list-group-flush likes">
-               <span>${data[i].likes}</span>
-              <i class="fa-regular fa-heart checked"></i>      
+              
+              ${data[i].badges.find(el => el === 'vegan')}
 
-</div>
+
+              </div>
               <div class="list-group list-group-flush">
                  <i class="fa-solid fa-clock"></i>
-  <span>  ${
-    recipeDetail.preparationMinutes + recipeDetail.cookingMinutes
-  }  Min</span>
+  <span>  ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes}    Min   -</span>
+              <span>${data[i].likes}</span>
+              <i class="fa-regular fa-heart checked"></i>  
+
+
               </div>
               <div class="list-group list-group-flush">
                 <a class="btn btn-outline-info card-link" href="#" role="button">Recipe Details</a>
@@ -394,3 +398,11 @@ const addEventListener = (data) => {
 // cards(data)
 // fetchData()
 controller();
+
+
+
+// console.log(navigator.geolocation.getCurrentPosition(showPosition))
+
+// function showPosition(){
+//   let latid = position.coords.
+// }
