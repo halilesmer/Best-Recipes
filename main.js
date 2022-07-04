@@ -7,6 +7,7 @@ const fetchIngredientsDatas = async () => {
 
   const response = await fetch(url);
   const result = await response.json();
+
   console.log("result: ", result);
 };
 
@@ -98,7 +99,6 @@ function checkBoxLikes(data) {
 /* Reseting/ deleting the actuell filters */
 const deleteFilterButton = (data) => {
   const searchInput = document.querySelector("#searchInput").value;
-  console.log("searchInput: ", searchInput);
 
   const inputGroup = document.querySelector(".input-group");
   const deleteFilterButton = document.createElement("button");
@@ -173,19 +173,20 @@ const cards = (data) => {
   recipeDetailsEventListener(data);
 };
 
-// <i class="fa fa-star checked"></i>
-// <i class="fa fa-star checked"></i>
-// <i class="fa fa-star checked"></i>
-// <i class="fa fa-star"></i>
-// <i class="fa fa-star"></i>
+const addEventListeners = () => {
+  // add event listener for checkboxes;
+  const checkboxes = document.getElementById();
+  checkboxes.addEventListener();
+  // add eventListener for search;
+
+  // add eventlistener to recipie details
+};
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (data) => {
-  console.log("recipeDetailsEventListener: Hallo ");
   const card = document.querySelectorAll(".card");
-  console.log("card: ", card);
 
-  document.querySelectorAll(".card").forEach((item) => {
+  card.forEach((item) => {
     item.addEventListener("click", () => {
       console.log("click eventListerner");
 
@@ -198,130 +199,129 @@ const recipeDetails = (data) => {
   const cardContainer = document.querySelector(".card-container");
   cardContainer.classList.add("makeDisplayNone");
 
-  const mainContainer = document.querySelector("main");
-  mainContainer.classList.remove("makeDisplayNone");
-
-  /* --- Selected Elements --- */
-  const main = document.querySelector("main");
-
+  const mainElement = document.querySelector("main");
+   mainElement.classList.remove("makeDisplayNone");
+  
+  const test = document.querySelector("main");
+  
+  
   /* --- Created Elements --- */
-  const recipeDetailsCon = document.createElement("div");
-
   const backButtonDiv = document.createElement("div");
-  const arrowLeftIcon = document.createElement("i");
-  const backButton = document.createElement("button");
-
-  const recipeImageCon = document.createElement("div");
-  const recipeTextCon = document.createElement("div");
-  const recipeHeader = document.createElement("div");
-  const preparationTimeCon = document.createElement("div");
-  const timeIcon = document.createElement("div");
-  const timeIconI = document.createElement("i");
-
-  const timeTextCon = document.createElement("div");
-  const timeTextP = document.createElement("p");
-
-  const recipeIngredientsCon = document.createElement("div");
-  const IngredientsSubtitleCon = document.createElement("div");
-  const IngredientsSubtitleH2 = document.createElement("h2");
-
-  const IngredientsTextCon = document.createElement("div");
-  const IngredientsOl = document.createElement("ol");
-
-  const recipeH1 = document.createElement("h1");
-  const mainImg = document.createElement("img");
-
-  const stepsCon = document.createElement("div");
-  const stepsSubtitle = document.createElement("div");
-  const subtitleH2 = document.createElement("h2");
-  const stepsListCon = document.createElement("div");
-  const stepsListOl = document.createElement("ol");
-
-  const moreButton = document.createElement("button");
-  /* --- Set Attributes --- */
-  recipeDetailsCon.setAttribute(
-    "class",
-    "row justify-content-md-center mt-3 mb-2 recipeDetailsCon"
-  );
-
   backButtonDiv.setAttribute("class", "arrow-left");
+  
+  const recipeDetailsCon = document.createElement('div');
+  recipeDetailsCon.setAttribute("class", "recipeDetailsCon");
+
+
+   const arrowLeftIcon = document.createElement("i");
+   arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
+
+  const backButton = document.createElement("button");
   backButton.setAttribute("class", "btn btn-primary btn-sm");
-  arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
-
-  recipeImageCon.setAttribute("class", "col col-md-4 recipeImageCon");
-
-  mainImg.setAttribute("alt", "mainImage");
-  mainImg.setAttribute("src", recipeDetail.image);
-
-  recipeTextCon.setAttribute("class", "col col-md-8 recipeTextCon");
-  recipeHeader.setAttribute("class", "recipeHeader");
-
-  preparationTimeCon.setAttribute("class", "preparationTimeCon");
-  timeIcon.setAttribute("class", "timeIcon");
-  timeIconI.setAttribute("class", "fa-solid fa-clock");
-
-  timeTextCon.setAttribute("class", "timeText");
-  timeTextP.setAttribute("class", "bold");
-
-  recipeIngredientsCon.setAttribute("class", "block recipeIngredientsCon");
-  IngredientsSubtitleCon.setAttribute("class", "subtitle");
-
-  stepsCon.setAttribute("class", "block stepsCon");
-  stepsSubtitle.setAttribute("class", "subtitle");
-
-  stepsListCon.setAttribute("class", "stepsListCon");
-
-  moreButton.setAttribute("class", "btn btn-info");
-  moreButton.setAttribute("id", "showMoreBtn");
-
-  //-- Textcontent ----
   backButton.textContent = "Back";
 
+  const recipeImageCon = document.createElement("div");
+  recipeImageCon.setAttribute("class", "col col-md-4 recipeImageCon");
+
+const recipeTextCon = document.createElement("div");
+recipeTextCon.setAttribute("class", "col col-md-8 recipeTextCon");
+
+  const recipeIngredientsCon = document.createElement("div");
+  recipeIngredientsCon.setAttribute("class", "block recipeIngredientsCon");
+
+const recipeHeader = document.createElement("div");
+recipeHeader.setAttribute("class", "recipeHeader");
+
+const preparationTimeCon = document.createElement("div");
+  preparationTimeCon.setAttribute("class", "preparationTimeCon");
+  
+  const timeIcon = document.createElement("div");
+  timeIcon.setAttribute("class", "timeIcon");
+  
+  const timeIconI = document.createElement("i");
+  timeIconI.setAttribute("class", "fa-solid fa-clock");
+  
+const timeTextCon = document.createElement("div");
+timeTextCon.setAttribute("class", "timeText");
+
+const timeTextP = document.createElement("p");
+timeTextP.setAttribute("class", "bold");
+timeTextP.innerText = "Make it in: 35 minutes";
+
+
+
+const IngredientsSubtitleCon = document.createElement("div");
+IngredientsSubtitleCon.setAttribute("class", "subtitle");
+
+const IngredientsSubtitleH2 = document.createElement("h2");
+IngredientsSubtitleH2.innerText = "Ingredients";
+
+const IngredientsTextCon = document.createElement("div");
+IngredientsTextCon.innerText = "Ingredients Textes";
+
+const IngredientsOl = document.createElement("ol");
+
+const recipeH1 = document.createElement("h1");
   recipeH1.textContent = recipeDetail.title;
-  timeTextP.innerText = "Make it in: 35 minutes";
-  IngredientsSubtitleH2.innerText = "Ingredients";
-  IngredientsTextCon.innerText = "Ingredients Textes";
-  subtitleH2.innerText = "Steps";
+  
+const mainImg = document.createElement("img");
+mainImg.setAttribute("alt", "mainImage");
+mainImg.setAttribute("src", recipeDetail.image);
 
-  moreButton.innerText = "Show More";
+const stepsCon = document.createElement("div");
+stepsCon.setAttribute("class", "block stepsCon");
 
-  /* --- Appendchild --- */
-  main.appendChild(recipeDetailsCon);
+const stepsSubtitle = document.createElement("div");
+stepsSubtitle.setAttribute("class", "subtitle");
 
-  recipeDetailsCon.appendChild(backButtonDiv);
-  backButtonDiv.appendChild(backButton);
-  backButtonDiv.appendChild(arrowLeftIcon);
+const subtitleH2 = document.createElement("h2");
+subtitleH2.innerText = "Steps";
 
-  recipeDetailsCon.appendChild(recipeImageCon);
+const stepsListCon = document.createElement("div");
+stepsListCon.setAttribute("class", "stepsListCon");
 
-  recipeImageCon.appendChild(mainImg);
+const stepsListOl = document.createElement("ol");
 
-  recipeDetailsCon.appendChild(recipeTextCon);
+const moreButton = document.createElement("button");
+moreButton.setAttribute("class", "btn btn-info");
+moreButton.setAttribute("id", "showMoreBtn");
+moreButton.innerText = "Show More";
+
+
+
+  
+ 
+
+  
+
+  
+mainElement.appendChild(recipeDetailsCon)
+     recipeDetailsCon.appendChild(backButtonDiv);
+     backButtonDiv.appendChild(backButton);
+     backButtonDiv.appendChild(arrowLeftIcon);
+     recipeDetailsCon.appendChild(recipeImageCon);
+     recipeImageCon.appendChild(mainImg);
+     recipeDetailsCon.appendChild(recipeTextCon);
   recipeTextCon.appendChild(recipeHeader);
-  recipeHeader.appendChild(recipeH1);
-
-  recipeTextCon.appendChild(preparationTimeCon);
-  preparationTimeCon.appendChild(timeIcon);
-  timeIcon.appendChild(timeIconI);
-
-  recipeTextCon.appendChild(timeTextCon);
-  timeTextCon.appendChild(timeTextP);
-
+  
   recipeTextCon.appendChild(recipeIngredientsCon);
+  recipeTextCon.appendChild(timeTextCon);
+  recipeTextCon.appendChild(preparationTimeCon);
+
   recipeIngredientsCon.appendChild(IngredientsSubtitleCon);
   IngredientsSubtitleCon.appendChild(IngredientsSubtitleH2);
-
   recipeIngredientsCon.appendChild(IngredientsTextCon);
   IngredientsTextCon.appendChild(IngredientsOl);
-
+  recipeHeader.appendChild(recipeH1);
   IngredientsTextCon.appendChild(stepsCon);
   stepsCon.appendChild(stepsSubtitle);
   stepsSubtitle.appendChild(subtitleH2);
-
   recipeIngredientsCon.appendChild(stepsListCon);
   stepsListCon.appendChild(stepsListOl);
-
   recipeIngredientsCon.appendChild(moreButton);
+  preparationTimeCon.appendChild(timeIcon);
+  timeIcon.appendChild(timeIconI);
+  timeTextCon.appendChild(timeTextP);
 
   // ------  Ingredients List - ------
   for (let x = 0; x < data.length; x++) {
@@ -355,27 +355,23 @@ const recipeDetails = (data) => {
           `
       );
     }
-    showMoreFunc();
+    // showMoreFunc();
+    moreButton.addEventListener("click", showMoreFunc);
   }
+  
+  
+
+
+
 
   backButton.addEventListener("click", goHome);
 };
 
-const goHome = () => {
-  const cardContainer = document.querySelector(".card-container");
-  cardContainer.classList.remove("makeDisplayNone");
-
-  const recipeDetailsCon = document.querySelector(".recipeDetailsCon");
-  // recipeDetailsCon.classList.add("makeDisplayNone");
-  recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
-};
-
-// Show more or less textes ---------------------------
-
 const showMoreFunc = () => {
   let showMoreBtn = document.getElementById("showMoreBtn");
+  console.log("showMoreBtn: ", showMoreBtn);
 
-  showMoreBtn.addEventListener("click", () => {
+
     document.querySelector(".stepsListCon").classList.toggle("stepsListMore");
 
     const stepsListCon = document.querySelector(".stepsListCon");
@@ -384,8 +380,19 @@ const showMoreFunc = () => {
     stepsListCon.classList.contains("stepsListMore")
       ? (showMoreBtn.textContent = "Show Less")
       : (showMoreBtn.textContent = "Show More");
-  });
+
 };
+
+const goHome = () => {
+  const cardContainer = document.querySelector(".card-container");
+  cardContainer.classList.remove("makeDisplayNone");
+
+  const recipeDetailsCon = document.querySelector(".recipeDetailsCon");
+  recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
+};
+
+
+
 
 // cards(data)
 // fetchData()
