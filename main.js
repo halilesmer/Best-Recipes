@@ -23,8 +23,9 @@ const controller = async () => {
     deleteFilterButton(data);
     cards(data);
     // recipeDetailsEventListener(data);
-    searchFunc(data);
-    checkBoxLikes(data);
+    // searchFunc(data);
+    // checkBoxLikes(data);
+    addEventListener(data);
   } catch (error) {
     console.log("error: ", error);
   }
@@ -33,68 +34,11 @@ const printData = (data) => {
   console.log("printData: ", data);
   // recipeDetailsEventListener(data);
 
-  checkBoxLikes(data);
+  // checkBoxLikes(data);
   cards(data);
 };
 
-/* ------- Searching recipes by typing ------------ */
-function searchFunc(data) {
-  const searchInput = document.getElementById("searchInput");
 
-  return searchInput.addEventListener("input", (e) => {
-    /* multiple spaces trimmed */
-    let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
-
-    const searchResult = data.filter((item) =>
-      item.title.toUpperCase().includes(inputValue)
-    );
-    // return cards(searchResult);
-
-    return printData(searchResult);
-    // return checkBoxLikes(searchResult);
-  });
-}
-/* ------- Sorting recipes by checkboxing ------------ */
-
-function checkBoxLikes(data) {
-  const checkBLikes = document.querySelector("#checkBoxLikes");
-  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
-
-  checkBLikes.addEventListener("click", (e) => {
-    const isChecked = e.target.checked;
-    let sortedData = [];
-
-    data.forEach((item) => {
-      sortedData.push(item);
-      item;
-    });
-
-    if (isChecked) {
-      sortCheckBoxLabel.innerHTML = "";
-      sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-      sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-      sortCheckBoxLabel.insertAdjacentHTML(
-        "beforeend",
-        `  <i class="fa-solid fa-arrow-down-1-9"></i>`
-      );
-    } else {
-      sortCheckBoxLabel.innerHTML = "";
-      sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-      sortedData = sortedData.sort((a, b) => b.likes - a.likes);
-      sortCheckBoxLabel.insertAdjacentHTML(
-        "beforeend",
-        `  <i class="fa-solid fa-arrow-up-9-1"></i>`
-      );
-    }
-
-    console.log("sortedData: ", sortedData);
-    // cards(sortedData);
-    printData(sortedData);
-    // recipeDetailsEventListener(data);
-  });
-}
 
 /* Reseting/ deleting the actuell filters */
 const deleteFilterButton = (data) => {
@@ -358,11 +302,6 @@ mainElement.appendChild(recipeDetailsCon)
     // showMoreFunc();
     moreButton.addEventListener("click", showMoreFunc);
   }
-  
-  
-
-
-
 
   backButton.addEventListener("click", goHome);
 };
@@ -391,7 +330,69 @@ const goHome = () => {
   recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
 };
 
+const addEventListener = (data) => {
+  console.log("data: ", data);
+  /* ------- Searching recipes by typing ------------ */
+  function searchFunc(data) {
+    const searchInput = document.getElementById("searchInput");
 
+    return searchInput.addEventListener("input", (e) => {
+      /* multiple spaces trimmed */
+      let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
+
+      const searchResult = data.filter((item) =>
+        item.title.toUpperCase().includes(inputValue)
+      );
+      // return cards(searchResult);
+
+      checkBoxLikes(searchResult)
+       printData(searchResult);
+      // return checkBoxLikes(searchResult);
+    });
+  }
+  /* ------- Sorting recipes by checkboxing ------------ */
+
+  function checkBoxLikes(data) {
+    const checkBLikes = document.querySelector("#checkBoxLikes");
+    const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
+
+    checkBLikes.addEventListener("click", (e) => {
+      const isChecked = e.target.checked;
+      let sortedData = [];
+      
+      data.forEach((item) => {
+        sortedData.push(item);
+        item;
+      });
+
+      if (isChecked ) {
+        sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `  <i class="fa-solid fa-arrow-down-1-9"></i>`
+        );
+      } else {
+        sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `  <i class="fa-solid fa-arrow-up-9-1"></i>`
+        );
+      }
+
+      // cards(sortedData);
+      printData(sortedData);
+      // recipeDetailsEventListener(data);
+    });
+  }
+  searchFunc(data)
+  checkBoxLikes(data)
+}
 
 
 // cards(data)
