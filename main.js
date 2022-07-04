@@ -20,7 +20,7 @@ const controller = async () => {
         : localIngredientsData;
     console.log("data: ", data);
 
-    deleteFilterButton(data);
+    // deleteFilterButton(data);
     cards(data);
     // recipeDetailsEventListener(data);
     // searchFunc(data);
@@ -30,44 +30,28 @@ const controller = async () => {
     console.log("error: ", error);
   }
 };
-const printData = (data) => {
-  console.log("printData: ", data);
-  // recipeDetailsEventListener(data);
 
-  // checkBoxLikes(data);
-  cards(data);
-};
+// const printData = (data) => {
+//   // recipeDetailsEventListener(data);
 
-
-
-/* Reseting/ deleting the actuell filters */
-const deleteFilterButton = (data) => {
-  const searchInput = document.querySelector("#searchInput").value;
-
-  const inputGroup = document.querySelector(".input-group");
-  const deleteFilterButton = document.createElement("button");
-
-  deleteFilterButton.innerText = "Delete Filters";
-  deleteFilterButton.setAttribute("class", "btn btn-secondary");
-  deleteFilterButton.setAttribute("type", "button");
-
-  inputGroup.appendChild(deleteFilterButton);
-
-  deleteFilterButton.addEventListener("click", () => {
-    cards(data);
-    window.location.reload();
-  });
-};
+//   // checkBoxLikes(data);
+//   cards(data);
+// };
 
 /* -------  Cards Lists ----------- */
 const cards = (data) => {
-  const dataLength = data.length;
-
   const cardRow = document.querySelector("#card-lists .row");
-  /* first delete the content of card elements */
+  /* ----- first delete the content of card elements -----*/
   cardRow.innerHTML = "";
 
-  if (dataLength >= 1) {
+/* -------- Warning if no result displayed ---------- starts*/
+  if (data.length <1) {
+    const warningParagr = document.createElement("h2");
+    warningParagr.innerText = "no results found. please try another search".toUpperCase();
+    cardRow.appendChild(warningParagr);
+  }
+  /* -------- Warning if no result displayed ---------- ends*/
+
     for (let i = 0; i < data.length; i++) {
       cardRow.insertAdjacentHTML(
         "afterbegin",
@@ -107,39 +91,16 @@ const cards = (data) => {
       `
       );
     }
-  } else {
-    const warningParagr = document.createElement("h2");
-
-    warningParagr.innerText =
-      "no results found. please try another search".toUpperCase();
-    cardRow.appendChild(warningParagr);
-  }
-  recipeDetailsEventListener(data);
+ 
+  // recipeDetailsEventListener(data);
 };
 
-const addEventListeners = () => {
-  // add event listener for checkboxes;
-  const checkboxes = document.getElementById();
-  checkboxes.addEventListener();
-  // add eventListener for search;
 
-  // add eventlistener to recipie details
-};
 
-/* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
-const recipeDetailsEventListener = (data) => {
-  const card = document.querySelectorAll(".card");
 
-  card.forEach((item) => {
-    item.addEventListener("click", () => {
-      console.log("click eventListerner");
-
-      recipeDetails(data);
-    });
-  });
-};
 /* Recipe Details Site */
 const recipeDetails = (data) => {
+  console.log("data recipeDetails: ", data);
   const cardContainer = document.querySelector(".card-container");
   cardContainer.classList.add("makeDisplayNone");
 
@@ -233,12 +194,6 @@ moreButton.innerText = "Show More";
 
 
 
-  
- 
-
-  
-
-  
 mainElement.appendChild(recipeDetailsCon)
      recipeDetailsCon.appendChild(backButtonDiv);
      backButtonDiv.appendChild(backButton);
@@ -306,6 +261,8 @@ mainElement.appendChild(recipeDetailsCon)
   backButton.addEventListener("click", goHome);
 };
 
+
+
 const showMoreFunc = () => {
   let showMoreBtn = document.getElementById("showMoreBtn");
   console.log("showMoreBtn: ", showMoreBtn);
@@ -330,6 +287,9 @@ const goHome = () => {
   recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
 };
 
+
+
+/* ----------- Add event listener --------------- */
 const addEventListener = (data) => {
   console.log("data: ", data);
   /* ------- Searching recipes by typing ------------ */
@@ -346,7 +306,8 @@ const addEventListener = (data) => {
       // return cards(searchResult);
 
       checkBoxLikes(searchResult)
-       printData(searchResult);
+      //  printData(searchResult);
+      cards(searchResult);
       // return checkBoxLikes(searchResult);
     });
   }
@@ -385,13 +346,48 @@ const addEventListener = (data) => {
         );
       }
 
-      // cards(sortedData);
-      printData(sortedData);
+      cards(sortedData);
+      // printData(sortedData);
       // recipeDetailsEventListener(data);
     });
   }
+
+  /* Reseting/ deleting the actuell filters */
+  const deleteFilterButton = (data) => {
+
+    const inputGroup = document.querySelector(".input-group");
+    const deleteFilterButton = document.createElement("button");
+
+    deleteFilterButton.innerText = "Delete Filters";
+    deleteFilterButton.setAttribute("class", "btn btn-secondary");
+    deleteFilterButton.setAttribute("type", "button");
+
+    inputGroup.appendChild(deleteFilterButton);
+
+    deleteFilterButton.addEventListener("click", () => {
+      cards(data);
+      window.location.reload();
+    });
+  };
+
+  /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
+  const recipeDetailsEventListener = (data) => {
+    console.log("data recipeDetailsEventListener: ", data);
+    const card = document.querySelectorAll(".card");
+
+    card.forEach((item) => {
+      item.addEventListener("click", () => {
+        console.log("click eventListerner");
+
+        recipeDetails(data);
+      });
+    });
+  };
+
   searchFunc(data)
   checkBoxLikes(data)
+  deleteFilterButton(data)
+  recipeDetailsEventListener(data)
 }
 
 
