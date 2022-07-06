@@ -51,8 +51,7 @@ const detailsData = recipeDetail;
 
 // };
 
-
-/* ------- Controller ----- */
+/* ------- Controller - only for local Data ----- */
 const controller = (mainData, detailsData) => {
   // const data =
   //   (await fetchIngredientsDatas()) !== undefined
@@ -67,11 +66,10 @@ const controller = (mainData, detailsData) => {
   deleteFilterButtonFunk(mainData);
   cards(mainData);
 
-  recipeDetailsEventListener(mainData, detailsData)
+  recipeDetailsEventListener(mainData, detailsData);
 
   setEventListeners(mainData);
-  getDataForOptions(mainData)
-
+  getDataForOptions(mainData);
 };
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
@@ -86,7 +84,6 @@ const recipeDetailsEventListener = (mainData, detailsData) => {
     });
   });
 };
-
 
 /* -------  Cards Lists ----------- */
 const cards = (data) => {
@@ -111,8 +108,9 @@ const cards = (data) => {
             <div class="card">
   
               <div class="image-wrapper hover01 column">
-                <figure><img src="${data[i].image
-      }" class="card-img-top" alt="...">
+                <figure><img src="${
+                  data[i].image
+                }" class="card-img-top" alt="...">
                 </figure>
               </div>
   
@@ -213,7 +211,7 @@ const recipeDetails = (mainData, detailsData) => {
 
   const IngredientsTextCon = document.createElement("div");
   IngredientsTextCon.setAttribute("class", "ingredientsTextCon");
- IngredientsTextCon.innerText = "Ingredients Textes";
+  IngredientsTextCon.innerText = "Ingredients Textes";
 
   const IngredientsOl = document.createElement("ol");
 
@@ -236,7 +234,6 @@ const recipeDetails = (mainData, detailsData) => {
   const subtitleH2 = document.createElement("h2");
   subtitleH2.innerText = "Steps";
 
-
   const stepsListOl = document.createElement("ol");
 
   const moreButton = document.createElement("button");
@@ -254,14 +251,13 @@ const recipeDetails = (mainData, detailsData) => {
   recipeTextCon.appendChild(recipeHeader);
 
   recipeTextCon.appendChild(preparationTimeCon);
-preparationTimeCon.appendChild(timeIcon);
-preparationTimeCon.appendChild(timeTextCon);
-timeIcon.appendChild(timeIconI);
-timeTextCon.appendChild(timeTextP);
+  preparationTimeCon.appendChild(timeIcon);
+  preparationTimeCon.appendChild(timeTextCon);
+  timeIcon.appendChild(timeIconI);
+  timeTextCon.appendChild(timeTextP);
 
   recipeTextCon.appendChild(recipeIngredientsCon);
 
- 
   recipeIngredientsCon.appendChild(IngredientsSubtitleCon);
   IngredientsSubtitleCon.appendChild(IngredientsSubtitleH2);
   recipeIngredientsCon.appendChild(IngredientsTextCon);
@@ -274,8 +270,6 @@ timeTextCon.appendChild(timeTextP);
   stepsCon.appendChild(stepsListCon);
   stepsListCon.appendChild(stepsListOl);
   stepsCon.appendChild(moreButton);
-
- 
 
   // ------  Ingredients List - ------
   // for (let x = 0; x < detailsData.length; x++) {
@@ -312,7 +306,7 @@ timeTextCon.appendChild(timeTextP);
   }
 
   backButton.addEventListener("click", goHome);
-};;
+};
 
 const showMoreFunc = () => {
   let showMoreBtn = document.getElementById("showMoreBtn");
@@ -338,7 +332,6 @@ const goHome = () => {
 
 /* ----------- Add event listener --------------- starts*/
 const setEventListeners = (data) => {
-
   /* ------- Searching recipes by typing ------------ */
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", (e) => {
@@ -352,7 +345,6 @@ const setEventListeners = (data) => {
     combinedFilters();
   });
 
-
   /* ------- Sorting recipes by checkboxing ------------ */
   const checkBLikes = document.querySelector("#checkBoxLikes");
   checkBLikes.addEventListener("click", () => {
@@ -365,36 +357,35 @@ const setEventListeners = (data) => {
 
   /* -----------   Set CombinedFilters ---------- */
   const combinedFilters = () => {
-     const selectedValue = document.querySelector(".option-select").value;
+    const selectedValue = document.querySelector(".option-select").value;
     const searchValue = document
-    .getElementById("searchInput")
-    .value.trim()
-    .replace(/  +/g, " ")
-    .toLowerCase();
-    
+      .getElementById("searchInput")
+      .value.trim()
+      .replace(/  +/g, " ")
+      .toLowerCase();
+
     const filteredData = data
-    /*------- search value ------ */
-    .filter((item) => {
-      if (searchValue === "" ) {
-        return true;
-      }
+      /*------- search value ------ */
+      .filter((item) => {
+        if (searchValue === "") {
+          return true;
+        }
 
-      return item.title.toLowerCase().includes(searchValue)
-     
-    })
-    .filter(item =>{
-      if (selectedValue === "All" || selectedValue === 'Options') {
-        return true;
-      }
+        return item.title.toLowerCase().includes(searchValue);
+      })
+      .filter((item) => {
+        if (selectedValue === "All" || selectedValue === "Options") {
+          return true;
+        }
 
-      return item.badges.includes(selectedValue.toLowerCase().replace(' ', '_'));
+        return item.badges.includes(
+          selectedValue.toLowerCase().replace(" ", "_")
+        );
+      });
 
-    })
-
-
-    const printData=(filteredData)=>{
-      checkBoxLikesFunk(filteredData)
-    }
+    const printData = (filteredData) => {
+      checkBoxLikesFunk(filteredData);
+    };
 
     /* -------- Sort recipes by Likes */
     function checkBoxLikesFunk(data) {
@@ -436,17 +427,25 @@ const setEventListeners = (data) => {
       // recipeDetailsEventListener(data);
     }
 
+    // cards(filteredData)
+    printData(filteredData);
+  };
 
+  /* Reseting/ deleting the actuell filters */
+  const inputGroup = document.querySelector(".input-group");
 
-      // cards(filteredData)
-    printData(filteredData)
-    }
-  // const combinedFilters = (mainData, detailsData) => {
-  //  
-   
+  const deleteFilterButton = document.createElement("button");
+  deleteFilterButton.innerText = "Delete Filters";
+  deleteFilterButton.setAttribute("class", "btn btn-secondary");
+  deleteFilterButton.setAttribute("type", "button");
+
+  inputGroup.appendChild(deleteFilterButton);
+
+  deleteFilterButton.addEventListener("click", () => {
+    deleteFilterButtonFunk();
+  });
 };
 /* ----------- Add event listener --------------- ends*/
-
 
 // const searchFunc = (data) => {
 //   const inputValue = document
@@ -464,76 +463,48 @@ const setEventListeners = (data) => {
 //   cards(searchResult);
 // };
 
-
-
-
 const getDataForOptions = (data) => {
   const select = document.querySelector(".option-select");
 
-
   let response = [];
-  
+
   data.forEach((item) => {
     item.badges.forEach((el) => {
       response.push(el);
     });
   });
-  
-  const removeDoubbles = [...new Set(response)];
 
-  
-  
-  
-  
+  const removeDoubbles = [...new Set(response)];
 
   removeDoubbles.forEach((item) => {
     const option = document.createElement("option");
     option.innerText = item.toUpperCase().replace("_", " ");
     select.appendChild(option);
   });
-}
+};
 // const selectOptions = (data) => {
 //   const select = document.querySelector(".option-select");
-
 
 //   let result = []
 //   for (let index = 0; index < data.length; index++) {
 //     for (let i = 0; i < data[index].badges.length; i++) {
-      
-      
+
 //       if (data[index].badges[i].toUpperCase().replace("_", " ") === select.value) {
 //         result.push(data[index])
 //       }
-      
+
 //     }
 //   }
 //   console.log("result: ", result);
 //   cards(result)
 // }
 
+const deleteFilterButtonFunk = () => {
+  const filterForm = document.querySelector(".filter-form");
 
-/* Reseting/ deleting the actuell filters */
-const deleteFilterButtonFunk = (mainData, detailsData) => {
-  const inputGroup = document.querySelector(".input-group");
-  const deleteFilterButton = document.createElement("button");
-
-  deleteFilterButton.innerText = "Delete Filters";
-  deleteFilterButton.setAttribute("class", "btn btn-secondary");
-  deleteFilterButton.setAttribute("type", "button");
-
-  inputGroup.appendChild(deleteFilterButton);
-
-  deleteFilterButton.addEventListener("click", () => {
-    cards(mainData, detailsData);
-    window.location.reload();
-  });
+  filterForm.reset();
+  cards(mainData);
 };
 
 
-
-
-
-// cards(data)
-// fetchData()
-// controller();
-controller(mainData, detailsData)
+controller(mainData, detailsData);
