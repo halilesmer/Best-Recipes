@@ -116,3 +116,7 @@ figure {
 a:hover {
   cursor: pointer;
 }
+.btn-outline-info {
+  color: #092222;
+  border-color: #2f4e54;
+}

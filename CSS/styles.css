@@ -10,6 +10,23 @@ html * {
 
 }
 
+
+nav.navbar {
+  border-bottom: blueviolet solid;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: inherit;
+  opacity: 0.96;
+}
+
+.container-fluid {
+  margin: auto;
+  width: auto;
+}
+
+
+
 #button-search {
   padding: 10px 20px;
   font-size: 20px;
@@ -22,10 +39,14 @@ html * {
   width: 100%;
   vertical-align: middle;
 } */
+.searchContainer {
+  padding-top: 4rem;
+
+}
+
 .searchContainer form {
   outline: solid lightseagreen 2px;
   padding: 1px;
-
   border-radius: 5px;
 }
 
@@ -43,23 +64,24 @@ html * {
 }
 
 .input-group.mb-3.input-filter {
-    margin-bottom: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
 }
 
- .fa-arrow-down-1-9:before {
+.fa-arrow-down-1-9:before {
   color: aliceblue;
   font-size: 1.2rem;
-      font-weight: 600;
+  font-weight: 600;
 }
 
 .fa-arrow-down-1-9:before {
   color: aliceblue;
   font-size: 1.2rem;
 }
+
 .fa-arrow-up-9-1:before,
 .fa-sort-numeric-up-alt:before {
   color: rgb(17, 43, 66);
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .makeDisplayNone {
@@ -67,5 +89,5 @@ html * {
 }
 
 footer .p-3 {
-    padding: 0.1rem!important;
+  padding: 0.1rem !important;
 }

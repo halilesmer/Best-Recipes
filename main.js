@@ -117,19 +117,14 @@ const cards = (data) => {
               <div class="card-body">
                 <h3 class="card-title">${data[i].title}</h3>
               </div>
+             
               <div class="list-group list-group-flush likes">
-              
-               ${data[i].badges.find((el) => el === "vegan")}
-
-
-              </div>
-              <div class="list-group list-group-flush">
                  <i class="fa-solid fa-clock"></i>
-  <span>  
+                <span>  
   
-  
-  
-  Min   -</span>
+            ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes}
+            
+            Min   -</span>
               <span>${data[i].likes}</span>
               <i class="fa-regular fa-heart checked"></i>  
 
