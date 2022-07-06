@@ -244,9 +244,6 @@ const recipeDetails = (mainData, detailsData) => {
   moreButton.setAttribute("id", "showMoreBtn");
   moreButton.innerText = "Show More";
 
-
- 
-  
   mainElement.appendChild(recipeDetailsCon);
   recipeDetailsCon.appendChild(backButtonDiv);
   backButtonDiv.appendChild(backButton);
@@ -258,20 +255,13 @@ const recipeDetails = (mainData, detailsData) => {
 
   recipeTextCon.appendChild(preparationTimeCon);
 preparationTimeCon.appendChild(timeIcon);
+preparationTimeCon.appendChild(timeTextCon);
 timeIcon.appendChild(timeIconI);
 timeTextCon.appendChild(timeTextP);
 
-  preparationTimeCon.appendChild(timeTextCon);
-  
-
-  
   recipeTextCon.appendChild(recipeIngredientsCon);
 
-  
-
-
-
-
+ 
   recipeIngredientsCon.appendChild(IngredientsSubtitleCon);
   IngredientsSubtitleCon.appendChild(IngredientsSubtitleH2);
   recipeIngredientsCon.appendChild(IngredientsTextCon);
@@ -348,79 +338,188 @@ const goHome = () => {
 
 /* ----------- Add event listener --------------- starts*/
 const setEventListeners = (data) => {
+
   /* ------- Searching recipes by typing ------------ */
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", (e) => {
-    searchFunc(data)
-    combinedFilters(mainData, detailsData)
+    // searchFunc(data);
+    combinedFilters();
+  });
+  /* ---------- Select an Option -------------- */
+  const select = document.querySelector(".option-select");
+  select.addEventListener("change", () => {
+    // selectOptions(data);
+    combinedFilters();
   });
 
 
   /* ------- Sorting recipes by checkboxing ------------ */
   const checkBLikes = document.querySelector("#checkBoxLikes");
   checkBLikes.addEventListener("click", () => {
-    checkBoxLikesFunk(data)
-    combinedFilters(mainData, detailsData)
+    checkBoxLikesFunk(data);
+    combinedFilters();
     /*  */
-});
+  });
 
+  /* -----------   Set CombinedFilters  testing --------------------------- */
 
-
-/* -----------   Set CombinedFilters ---------- */
-  const combinedFilters = (mainData, detailsData) => {
+  /* -----------   Set CombinedFilters ---------- */
+  const combinedFilters = (liveSearch, options) => {
+     const selectedValue = document.querySelector(".option-select").value;
+     console.log("selectedValue: ", selectedValue.toLowerCase().replace(' ', '_'));
     const searchValue = document
     .getElementById("searchInput")
     .value.trim()
     .replace(/  +/g, " ")
-    .toUpperCase();
-    const selectValue = document.querySelector(".option-select").value;
+    .toLowerCase();
+    
+    console.log("searchValue: ", searchValue);
+    const resultProducts = data
+    .filter((item) => {
+      if (searchValue === "") {
+        return true;
+      }
+      console.log("obj: ", item);
+
+      return item.title.toLowerCase().includes(searchValue)
+     
+    }).filter(item =>{
+      if (selectedValue === "all") {
+        return true;
+      }
+      // let result = [];
+      
+      // console.log("obj: ", obj);
+      // // obj.forEach((item) => {
+      // //   item.badges.forEach((el) => {
+      // //     result.push(el);
+      // //   });
+      // // });
+
+
+      // const removeDoubbles = [...new Set(result)];
+      // console.log("removeDoubbles: ", removeDoubbles);
+ 
+      // return obj.badges.toLowerCase().includes(selectedValue)
+      // console.log("item.badges: ", item.badges.includes(selectedValue.toLowerCase().replace(' ', '_')));
+      return item.badges.includes(selectedValue.toLowerCase().replace(' ', '_'));
+
+    })
+
+    console.log("resultProducts: ", resultProducts);
+      cards(resultProducts)
+    }
+  // const combinedFilters = (mainData, detailsData) => {
+  //  
+   
+
+  
+
+
+
+
+
+
+  //   let free = [];
+    
+  //   for (let i = 0; i < mainData.length; i++) {
+  //     // console.log("mainData[i].badges: ", mainData[i].badges);
+  //     for (let index = 0; index < mainData[i].badges.length; index++) {
+  //       // console.log("main", mainData[i].badges[index]);
+  //       //  free.push(mainData[i].badges[index] === "hormone_free");
+  //       mainData[i].badges[index].toUpperCase().replace("_", " ") ===
+  //       selectedValue
+  //       ? free.push(mainData[i].badges[index].toUpperCase().replace("_", " "))
+  //       : "";
+  //     }
+  //   }
+  //   // const test= mainData.map((item) => {
+  //   //   // return item.toUpperCase().replace("_", " ") === select.value;
+  //   //    item.badges.filter(el => {
+  //   //      console.log("item", el);
+  //   //        free.push(el === "hormone_free")
+  //   //      return el === "hormone_free";
+  //   //    })
+  //   // });
+  //   // console.log("free: ", free);
+  //   // console.log("test: ", test);
+  //   console.log(" free.includes(selectedValue)", free.includes(selectedValue));
+  //   /*  result for options /select element --------------- */
+  //   let selectResult = [];
+  //   for (let index = 0; index < data.length; index++) {
+  //     for (let i = 0; i < data[index].badges.length; i++) {
+  //       if (
+  //         data[index].badges[i].toUpperCase().replace("_", " ") === select.value
+     
+  //       ) {
+  //         selectResult.push(data[index]);
+  //       }
+  //     }
+  //   }
+  //   // console.log("selectResult: ", selectResult);
+  //   // cards(selectResult);
+
+  //   // //select check boxes const dropDownValue = checkboxesCheck.value;
+   
+    
+   
     
 
-    // //select check boxes const dropDownValue = checkboxesCheck.value;
-
-    const filteredElements = mainData.filter((element) => {
-      return ((element.title.toUpperCase().includes(searchValue) || element.badges.find((item)=>{
-       return item.toUpperCase().replace("_", " ") === select.value
-      })))
+  //   const filteredElements = mainData.filter((element) => {
+      
+  //     let arrayOfBadges = [];
+  //     let lowercaseSelectedValue = selectedValue.toLowerCase();
      
-    });
+      
+      
+  //     element.badges.forEach((item) => {
+        
+  //       arrayOfBadges.push(item);
+  //     });
+      
+  //     return (arrayOfBadges.includes("egg_free"))
 
-    console.log("filteredElements: ", filteredElements);
-    cards(filteredElements)
-  }
+      
+  //     // console.log("arrayOfBadges: ", arrayOfBadges);
+  //     // const arrayOfBadges = element.map((el) => {
+  //     //   return el.badges
+  //     // });
+  //     // console.log("arrayOfBadges: ", arrayOfBadges);
+      
+  //       // if (selectedValue !== 'All') {
+  //       //  return (arrayOfBadges.includes(element.title.toLowerCase())
+  //       //   || 
+  //       //     selectedValue === 'All')
+  //       //   &&
+  //       //   (selectResult.length >0)
+          
+  //       // }
+        
 
+  //   });
 
-
-  /* ---------- Select an Option -------------- */
-  const select = document.querySelector(".option-select");
-  select.addEventListener(
-    "change",
-    () => {
-      selectOptions(data)
-      combinedFilters(mainData, detailsData)
-    }
-
-  );
-
+  //   console.log("filteredElements: ", filteredElements);
+  //   cards(filteredElements);
+  // };
 };
 /* ----------- Add event listener --------------- ends*/
 
 
-const searchFunc = (data) => {
-  const inputValue = document
-    .getElementById("searchInput")
-    .value.trim()
-    .replace(/  +/g, " ")
-    .toUpperCase();
+// const searchFunc = (data) => {
+//   const inputValue = document
+//     .getElementById("searchInput")
+//     .value.trim()
+//     .replace(/  +/g, " ")
+//     .toUpperCase();
 
-  /* multiple spaces trimmed */
-  //  let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
+//   /* multiple spaces trimmed */
+//   //  let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
 
-  const searchResult = data.filter((item) =>
-    item.title.toUpperCase().includes(inputValue)
-  );
-  cards(searchResult);
-};
+//   const searchResult = data.filter((item) =>
+//     item.title.toUpperCase().includes(inputValue)
+//   );
+//   cards(searchResult);
+// };
 
 
 function checkBoxLikesFunk(data) {
@@ -467,14 +566,19 @@ const getDataForOptions = (data) => {
 
 
   let response = [];
-
+  
   data.forEach((item) => {
     item.badges.forEach((el) => {
       response.push(el);
     });
   });
-
+  
   const removeDoubbles = [...new Set(response)];
+
+  
+  
+  
+  
 
   removeDoubbles.forEach((item) => {
     const option = document.createElement("option");
@@ -482,23 +586,24 @@ const getDataForOptions = (data) => {
     select.appendChild(option);
   });
 }
-const selectOptions = (data) => {
-  const select = document.querySelector(".option-select");
+// const selectOptions = (data) => {
+//   const select = document.querySelector(".option-select");
 
 
-  let result = []
-  for (let index = 0; index < data.length; index++) {
-    for (let i = 0; i < data[index].badges.length; i++) {
-
-
-      if (data[index].badges[i].toUpperCase().replace("_", " ") === select.value) {
-        result.push(data[index])
-      }
-
-    }
-  }
-  cards(result)
-}
+//   let result = []
+//   for (let index = 0; index < data.length; index++) {
+//     for (let i = 0; i < data[index].badges.length; i++) {
+      
+      
+//       if (data[index].badges[i].toUpperCase().replace("_", " ") === select.value) {
+//         result.push(data[index])
+//       }
+      
+//     }
+//   }
+//   console.log("result: ", result);
+//   cards(result)
+// }
 
 
 /* Reseting/ deleting the actuell filters */
