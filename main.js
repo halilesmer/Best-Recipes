@@ -373,15 +373,17 @@ const setEventListeners = (data) => {
     .toLowerCase();
     
     const filteredData = data
+    /*------- search value ------ */
     .filter((item) => {
-      if (searchValue === "") {
+      if (searchValue === "" ) {
         return true;
       }
 
       return item.title.toLowerCase().includes(searchValue)
      
-    }).filter(item =>{
-      if (selectedValue === "all") {
+    })
+    .filter(item =>{
+      if (selectedValue === "All" || selectedValue === 'Options') {
         return true;
       }
 
@@ -394,6 +396,7 @@ const setEventListeners = (data) => {
       checkBoxLikesFunk(filteredData)
     }
 
+    /* -------- Sort recipes by Likes */
     function checkBoxLikesFunk(data) {
       const checkBLikes = document.querySelector("#checkBoxLikes");
       const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
