@@ -16,19 +16,19 @@ const detailsData = recipeDetail;
 //       })
 //       )
 //       console.log("responses: ", responses);
-    
+
 //     if (responses[0].status === 200 && responses[1].status === 200) {
 //       const mainData = await responses[0].json();
 //       const detailsData = await responses[1].json();
 //       console.log("mainData: ", mainData);
 //       console.log("detailsData: ", detailsData);
-      
+
 //       controller(mainData, detailsData)
-      
+
 //     }
 //   } catch (error) {
 //     console.log("error: ", error);
-    
+
 //   }
 
 //   // const response = await fetch(url);
@@ -40,7 +40,7 @@ const detailsData = recipeDetail;
 // const controller = async (mainData, detailsData) => {
 //      const data = await fetchIngredientsDatas()
 //      console.log("data: ", data);
-    
+
 //     deleteFilterButtonFunk(mainData);
 //     cards(mainData);
 
@@ -48,12 +48,12 @@ const detailsData = recipeDetail;
 
 //     setEventListeners(mainData);
 //     getDataForOptions(mainData)
- 
+
 // };
 
 
 /* ------- Controller ----- */
-const controller =  (mainData, detailsData) => {
+const controller = (mainData, detailsData) => {
   // const data =
   //   (await fetchIngredientsDatas()) !== undefined
   //     ? fetchIngredientsDatas()
@@ -76,7 +76,6 @@ const controller =  (mainData, detailsData) => {
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
 const recipeDetailsEventListener = (mainData, detailsData) => {
-  console.log("detailsData: ", detailsData);
   const card = document.querySelectorAll(".card");
 
   card.forEach((item) => {
@@ -213,19 +212,23 @@ const recipeDetails = (mainData, detailsData) => {
   IngredientsSubtitleH2.innerText = "Ingredients";
 
   const IngredientsTextCon = document.createElement("div");
-  IngredientsTextCon.innerText = "Ingredients Textes";
+  IngredientsTextCon.setAttribute("class", "ingredientsTextCon");
+ IngredientsTextCon.innerText = "Ingredients Textes";
 
   const IngredientsOl = document.createElement("ol");
 
   const recipeH1 = document.createElement("h1");
-  recipeH1.textContent = recipeDetail.title;
+  recipeH1.textContent = detailsData.title;
 
   const mainImg = document.createElement("img");
   mainImg.setAttribute("alt", "mainImage");
-  mainImg.setAttribute("src", recipeDetail.image);
+  mainImg.setAttribute("src", detailsData.image);
 
   const stepsCon = document.createElement("div");
   stepsCon.setAttribute("class", "block stepsCon");
+
+  const stepsListCon = document.createElement("div");
+  stepsListCon.setAttribute("class", "stepsListCon");
 
   const stepsSubtitle = document.createElement("div");
   stepsSubtitle.setAttribute("class", "subtitle");
@@ -233,8 +236,6 @@ const recipeDetails = (mainData, detailsData) => {
   const subtitleH2 = document.createElement("h2");
   subtitleH2.innerText = "Steps";
 
-  const stepsListCon = document.createElement("div");
-  stepsListCon.setAttribute("class", "stepsListCon");
 
   const stepsListOl = document.createElement("ol");
 
@@ -243,6 +244,9 @@ const recipeDetails = (mainData, detailsData) => {
   moreButton.setAttribute("id", "showMoreBtn");
   moreButton.innerText = "Show More";
 
+
+ 
+  
   mainElement.appendChild(recipeDetailsCon);
   recipeDetailsCon.appendChild(backButtonDiv);
   backButtonDiv.appendChild(backButton);
@@ -252,24 +256,36 @@ const recipeDetails = (mainData, detailsData) => {
   recipeDetailsCon.appendChild(recipeTextCon);
   recipeTextCon.appendChild(recipeHeader);
 
-  recipeTextCon.appendChild(recipeIngredientsCon);
-  recipeTextCon.appendChild(timeTextCon);
   recipeTextCon.appendChild(preparationTimeCon);
+preparationTimeCon.appendChild(timeIcon);
+timeIcon.appendChild(timeIconI);
+timeTextCon.appendChild(timeTextP);
+
+  preparationTimeCon.appendChild(timeTextCon);
+  
+
+  
+  recipeTextCon.appendChild(recipeIngredientsCon);
+
+  
+
+
+
 
   recipeIngredientsCon.appendChild(IngredientsSubtitleCon);
   IngredientsSubtitleCon.appendChild(IngredientsSubtitleH2);
   recipeIngredientsCon.appendChild(IngredientsTextCon);
   IngredientsTextCon.appendChild(IngredientsOl);
   recipeHeader.appendChild(recipeH1);
-  IngredientsTextCon.appendChild(stepsCon);
+  recipeTextCon.appendChild(stepsCon);
+
   stepsCon.appendChild(stepsSubtitle);
   stepsSubtitle.appendChild(subtitleH2);
-  recipeIngredientsCon.appendChild(stepsListCon);
+  stepsCon.appendChild(stepsListCon);
   stepsListCon.appendChild(stepsListOl);
-  recipeIngredientsCon.appendChild(moreButton);
-  preparationTimeCon.appendChild(timeIcon);
-  timeIcon.appendChild(timeIconI);
-  timeTextCon.appendChild(timeTextP);
+  stepsCon.appendChild(moreButton);
+
+ 
 
   // ------  Ingredients List - ------
   // for (let x = 0; x < detailsData.length; x++) {
@@ -283,13 +299,10 @@ const recipeDetails = (mainData, detailsData) => {
   //   }
   // }
 
+  //
   for (let x = 0; x < detailsData.analyzedInstructions.length; x++) {
     // const steps = detailsData.analyzedInstructions[x].steps;
-    for (
-      let y = 0;
-      y < detailsData.analyzedInstructions[x].steps.length;
-      y++
-    ) {
+    for (let y = 0; y < detailsData.analyzedInstructions[x].steps.length; y++) {
       const sortedSteps = detailsData.analyzedInstructions[x].steps.sort(
         (a, b) => b.number - a.number
       );
@@ -309,7 +322,7 @@ const recipeDetails = (mainData, detailsData) => {
   }
 
   backButton.addEventListener("click", goHome);
-};
+};;
 
 const showMoreFunc = () => {
   let showMoreBtn = document.getElementById("showMoreBtn");
@@ -337,13 +350,44 @@ const goHome = () => {
 const setEventListeners = (data) => {
   /* ------- Searching recipes by typing ------------ */
   const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", (e) => searchFunc(data));
+  searchInput.addEventListener("input", (e) => {
+    searchFunc(data)
+    combinedFilters(mainData, detailsData)
+  });
 
 
   /* ------- Sorting recipes by checkboxing ------------ */
   const checkBLikes = document.querySelector("#checkBoxLikes");
-  checkBLikes.addEventListener("click", () => checkBoxLikesFunk(data));
+  checkBLikes.addEventListener("click", () => {
+    checkBoxLikesFunk(data)
+    combinedFilters(mainData, detailsData)
+    /*  */
+});
 
+
+
+/* -----------   Set CombinedFilters ---------- */
+  const combinedFilters = (mainData, detailsData) => {
+    const searchValue = document
+    .getElementById("searchInput")
+    .value.trim()
+    .replace(/  +/g, " ")
+    .toUpperCase();
+    const selectValue = document.querySelector(".option-select").value;
+    
+
+    // //select check boxes const dropDownValue = checkboxesCheck.value;
+
+    const filteredElements = mainData.filter((element) => {
+      return ((element.title.toUpperCase().includes(searchValue) || element.badges.find((item)=>{
+       return item.toUpperCase().replace("_", " ") === select.value
+      })))
+     
+    });
+
+    console.log("filteredElements: ", filteredElements);
+    cards(filteredElements)
+  }
 
 
 
@@ -351,9 +395,13 @@ const setEventListeners = (data) => {
   const select = document.querySelector(".option-select");
   select.addEventListener(
     "change",
-    () => selectOptions(data)
-    // combinedFilters()
+    () => {
+      selectOptions(data)
+      combinedFilters(mainData, detailsData)
+    }
+
   );
+
 };
 /* ----------- Add event listener --------------- ends*/
 
@@ -454,7 +502,7 @@ const selectOptions = (data) => {
 
 
 /* Reseting/ deleting the actuell filters */
-const deleteFilterButtonFunk = (data) => {
+const deleteFilterButtonFunk = (mainData, detailsData) => {
   const inputGroup = document.querySelector(".input-group");
   const deleteFilterButton = document.createElement("button");
 
@@ -465,7 +513,7 @@ const deleteFilterButtonFunk = (data) => {
   inputGroup.appendChild(deleteFilterButton);
 
   deleteFilterButton.addEventListener("click", () => {
-    cards(data);
+    cards(mainData, detailsData);
     window.location.reload();
   });
 };
@@ -473,16 +521,6 @@ const deleteFilterButtonFunk = (data) => {
 
 
 
-// const combinedFilters = (data) => {
-//   console.log(dropdowvalue);
-//   // select dropdown  const dropdowvalue = document.getlementbyId.value;
-//   //select check boxes const dropDownValue = checkboxesCheck.value;
-
-//   const filteredElements = data.filter((element) => {
-//     return( element.name === dropdownvalue || dropdownValue === "all") && (checBoxesvalue.includes(element.name) || checboxes.lenght === 0)
-//   });
-
-// }
 
 // cards(data)
 // fetchData()
