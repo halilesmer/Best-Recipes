@@ -53,20 +53,11 @@ const detailsData = recipeDetail;
 
 /* ------- Controller - only for local Data ----- */
 const controller = (mainData, detailsData) => {
-  // const data =
-  //   (await fetchIngredientsDatas()) !== undefined
-  //     ? fetchIngredientsDatas()
-  //     : localIngredientsData;
-  // console.log("data: ", data);
-
-  // const data = localIngredientsData;
-
-  console.log("data: ", mainData);
 
   deleteFilterButtonFunk(mainData);
   cards(mainData);
 
-  recipeDetailsEventListener(mainData, detailsData);
+  // recipeDetailsEventListener(mainData, detailsData);
 
   setEventListeners(mainData);
   getDataForOptions(mainData);
@@ -142,7 +133,7 @@ const cards = (data) => {
     );
   }
 
-  // recipeDetailsEventListener(data);
+  recipeDetailsEventListener(mainData, detailsData);
 };
 
 /* Recipe Details Site */
