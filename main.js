@@ -356,7 +356,7 @@ const setEventListeners = (data) => {
   /* ------- Sorting recipes by checkboxing ------------ */
   const checkBLikes = document.querySelector("#checkBoxLikes");
   checkBLikes.addEventListener("click", () => {
-    checkBoxLikesFunk(data);
+    // checkBoxLikesFunk(data);
     combinedFilters();
     /*  */
   });
@@ -364,22 +364,19 @@ const setEventListeners = (data) => {
   /* -----------   Set CombinedFilters  testing --------------------------- */
 
   /* -----------   Set CombinedFilters ---------- */
-  const combinedFilters = (liveSearch, options) => {
+  const combinedFilters = () => {
      const selectedValue = document.querySelector(".option-select").value;
-     console.log("selectedValue: ", selectedValue.toLowerCase().replace(' ', '_'));
     const searchValue = document
     .getElementById("searchInput")
     .value.trim()
     .replace(/  +/g, " ")
     .toLowerCase();
     
-    console.log("searchValue: ", searchValue);
-    const resultProducts = data
+    const filteredData = data
     .filter((item) => {
       if (searchValue === "") {
         return true;
       }
-      console.log("obj: ", item);
 
       return item.title.toLowerCase().includes(searchValue)
      
@@ -387,120 +384,63 @@ const setEventListeners = (data) => {
       if (selectedValue === "all") {
         return true;
       }
-      // let result = [];
-      
-      // console.log("obj: ", obj);
-      // // obj.forEach((item) => {
-      // //   item.badges.forEach((el) => {
-      // //     result.push(el);
-      // //   });
-      // // });
 
-
-      // const removeDoubbles = [...new Set(result)];
-      // console.log("removeDoubbles: ", removeDoubbles);
- 
-      // return obj.badges.toLowerCase().includes(selectedValue)
-      // console.log("item.badges: ", item.badges.includes(selectedValue.toLowerCase().replace(' ', '_')));
       return item.badges.includes(selectedValue.toLowerCase().replace(' ', '_'));
 
     })
 
-    console.log("resultProducts: ", resultProducts);
-      cards(resultProducts)
+
+    const printData=(filteredData)=>{
+      checkBoxLikesFunk(filteredData)
+    }
+
+    function checkBoxLikesFunk(data) {
+      const checkBLikes = document.querySelector("#checkBoxLikes");
+      const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
+
+      const isChecked = checkBLikes.checked;
+      // const isChecked = sortCheckBoxLabel.checked;
+      console.log("isChecked: ", isChecked);
+      let sortedData = [];
+
+      data.forEach((item) => {
+        sortedData.push(item);
+        item;
+      });
+
+      if (isChecked) {
+        sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `  <i class="fa-solid fa-arrow-down-1-9"></i>`
+        );
+      } else {
+        sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `  <i class="fa-solid fa-arrow-up-9-1"></i>`
+        );
+      }
+      cards(sortedData);
+
+      // printData(sortedData);
+      // recipeDetailsEventListener(data);
+    }
+
+
+
+      // cards(filteredData)
+    printData(filteredData)
     }
   // const combinedFilters = (mainData, detailsData) => {
   //  
    
-
-  
-
-
-
-
-
-
-  //   let free = [];
-    
-  //   for (let i = 0; i < mainData.length; i++) {
-  //     // console.log("mainData[i].badges: ", mainData[i].badges);
-  //     for (let index = 0; index < mainData[i].badges.length; index++) {
-  //       // console.log("main", mainData[i].badges[index]);
-  //       //  free.push(mainData[i].badges[index] === "hormone_free");
-  //       mainData[i].badges[index].toUpperCase().replace("_", " ") ===
-  //       selectedValue
-  //       ? free.push(mainData[i].badges[index].toUpperCase().replace("_", " "))
-  //       : "";
-  //     }
-  //   }
-  //   // const test= mainData.map((item) => {
-  //   //   // return item.toUpperCase().replace("_", " ") === select.value;
-  //   //    item.badges.filter(el => {
-  //   //      console.log("item", el);
-  //   //        free.push(el === "hormone_free")
-  //   //      return el === "hormone_free";
-  //   //    })
-  //   // });
-  //   // console.log("free: ", free);
-  //   // console.log("test: ", test);
-  //   console.log(" free.includes(selectedValue)", free.includes(selectedValue));
-  //   /*  result for options /select element --------------- */
-  //   let selectResult = [];
-  //   for (let index = 0; index < data.length; index++) {
-  //     for (let i = 0; i < data[index].badges.length; i++) {
-  //       if (
-  //         data[index].badges[i].toUpperCase().replace("_", " ") === select.value
-     
-  //       ) {
-  //         selectResult.push(data[index]);
-  //       }
-  //     }
-  //   }
-  //   // console.log("selectResult: ", selectResult);
-  //   // cards(selectResult);
-
-  //   // //select check boxes const dropDownValue = checkboxesCheck.value;
-   
-    
-   
-    
-
-  //   const filteredElements = mainData.filter((element) => {
-      
-  //     let arrayOfBadges = [];
-  //     let lowercaseSelectedValue = selectedValue.toLowerCase();
-     
-      
-      
-  //     element.badges.forEach((item) => {
-        
-  //       arrayOfBadges.push(item);
-  //     });
-      
-  //     return (arrayOfBadges.includes("egg_free"))
-
-      
-  //     // console.log("arrayOfBadges: ", arrayOfBadges);
-  //     // const arrayOfBadges = element.map((el) => {
-  //     //   return el.badges
-  //     // });
-  //     // console.log("arrayOfBadges: ", arrayOfBadges);
-      
-  //       // if (selectedValue !== 'All') {
-  //       //  return (arrayOfBadges.includes(element.title.toLowerCase())
-  //       //   || 
-  //       //     selectedValue === 'All')
-  //       //   &&
-  //       //   (selectResult.length >0)
-          
-  //       // }
-        
-
-  //   });
-
-  //   console.log("filteredElements: ", filteredElements);
-  //   cards(filteredElements);
-  // };
 };
 /* ----------- Add event listener --------------- ends*/
 
@@ -522,44 +462,7 @@ const setEventListeners = (data) => {
 // };
 
 
-function checkBoxLikesFunk(data) {
-  const checkBLikes = document.querySelector("#checkBoxLikes");
-  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
 
-  const isChecked = checkBLikes.checked;
-  // const isChecked = sortCheckBoxLabel.checked;
-  console.log("isChecked: ", isChecked);
-  let sortedData = [];
-
-  data.forEach((item) => {
-    sortedData.push(item);
-    item;
-  });
-
-  if (isChecked) {
-    sortCheckBoxLabel.innerHTML = "";
-    sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-    sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-    sortCheckBoxLabel.insertAdjacentHTML(
-      "beforeend",
-      `  <i class="fa-solid fa-arrow-down-1-9"></i>`
-    );
-  } else {
-    sortCheckBoxLabel.innerHTML = "";
-    sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-    sortedData = sortedData.sort((a, b) => b.likes - a.likes);
-    sortCheckBoxLabel.insertAdjacentHTML(
-      "beforeend",
-      `  <i class="fa-solid fa-arrow-up-9-1"></i>`
-    );
-  }
-
-  cards(sortedData);
-  // printData(sortedData);
-  // recipeDetailsEventListener(data);
-}
 
 const getDataForOptions = (data) => {
   const select = document.querySelector(".option-select");

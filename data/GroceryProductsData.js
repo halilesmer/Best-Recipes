@@ -3,7 +3,7 @@ const GroceryProductsData = [
     id: 192386,
     title: "Pizza Buddy: Frozen Pizza Dough, 16 Oz",
     price: 339.0,
-    likes: 1,
+    likes: 10,
     badges: [
       "egg_free",
       "msg_free",
@@ -153,7 +153,7 @@ const GroceryProductsData = [
     id: 531751,
     title: "Pizza Corner Pizza Corner  Pizza, 24 oz",
     price: 0.0,
-    likes: 0,
+    likes: 3000,
     badges: [
       "egg_free",
       "msg_free",
@@ -8975,7 +8975,7 @@ const GroceryProductsData = [
     title:
       "Amy's Cheese Pizza, Made with Organic Flour &amp; Tomatoes, Single Serve, 6.2-Ounce",
     price: 2.0,
-    likes: 0,
+    likes: 30,
     badges: [
       "egg_free",
       "peanut_free",
