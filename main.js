@@ -460,7 +460,8 @@ const getDataForOptions = (data) => {
     });
   });
 
-  const removeDoubbles = [...new Set(response)];
+  const removeDoubbles = [...new Set(response)].sort();
+  console.log("removeDoubbles: ", removeDoubbles);
 
   removeDoubbles.forEach((item) => {
     const option = document.createElement("option");
