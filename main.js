@@ -165,34 +165,37 @@ const recipeDetailsEventListener = (detailsData) => {
 };
 
 
-
-
 /* ----------- Add event listener --------------- starts*/
 const setEventListeners = (data) => {
   /* ------- Searching recipes by typing ------------ */
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", (e) => {
     // searchFunc(data);
-    combinedFilters();
+    combinedFilters(data);
   });
   /* ---------- Select an Option -------------- */
   const select = document.querySelector(".option-select");
   select.addEventListener("change", () => {
     // selectOptions(data);
-    combinedFilters();
+    combinedFilters(data);
   });
 
   /* ------- Sorting recipes by checkboxing ------------ */
   const checkBLikes = document.querySelector("#checkBoxLikes");
   checkBLikes.addEventListener("click", () => {
     // checkBoxLikesFunc(data);
-    combinedFilters();
+    combinedFilters(data);
     /*  */
   });
 
 
+};
+
+
+
+  
   /* -----------   Set CombinedFilters ---------- */
-  const combinedFilters = () => {
+  const combinedFilters = (data) => {
     const selectedValue = document.querySelector(".option-select").value;
     const searchValue = document
       .getElementById("searchInput")
@@ -220,6 +223,9 @@ const setEventListeners = (data) => {
       checkBoxLikesFunc(filteredData);
     // const printData = (filteredData) => {
     // };
+
+    }
+
 
     /* -------- Sort recipes by Likes */
     function checkBoxLikesFunc(data) {
@@ -263,7 +269,7 @@ const setEventListeners = (data) => {
 
     // cards(filteredData)
     // printData(filteredData);
-  };
+
 
   /* Reseting/ deleting the actuell filters */
   // change this
@@ -279,7 +285,6 @@ const setEventListeners = (data) => {
   deleteFilterButton.addEventListener("click", () => {
     deleteFilterButtonFunk();
   });
-};
 /* ----------- Add event listener --------------- ends*/
 
 /* Recipe Details Site */
