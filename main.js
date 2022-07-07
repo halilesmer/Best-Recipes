@@ -63,26 +63,70 @@ const controller = (mainData, detailsData) => {
   getDataForOptions(mainData);
 };
 
-const getDataForOptions = (data) => {
+
+
+
+const getDataForOptions = (mainData, filteredData) => {
+  console.log("filteredData: ", filteredData);
+  console.log(filteredData === undefined || filteredData === '' || filteredData.length===0)
+
   const select = document.querySelector(".option-select");
 
-  let response = [];
 
-  data.forEach((item) => {
-    item.badges.forEach((el) => {
-      response.push(el);
+  let resultBadgesMainData = [];
+  
+  
+  if (filteredData === undefined || filteredData === '' || filteredData.length === 0) {
+    mainData.forEach((item) => {
+      item.badges.forEach((el) => {
+        resultBadgesMainData.push(el);
+      });
     });
-  });
+    const removeDoubblesMainData = [...new Set(resultBadgesMainData)].sort();
+    console.log("removeDoubblesMainData: ", removeDoubblesMainData);
+    
+    removeDoubblesMainData.forEach((item) => {
+      const option = document.createElement("option");
 
-  const removeDoubbles = [...new Set(response)].sort();
-  console.log("removeDoubbles: ", removeDoubbles);
+      option.innerText = item.toUpperCase().replace("_", " ");
 
-  removeDoubbles.forEach((item) => {
-    const option = document.createElement("option");
-    option.innerText = item.toUpperCase().replace("_", " ");
-    select.appendChild(option);
-  });
+      
+      select.appendChild(option);
+    });
+    console.log("resultBadgesMainData: ", resultBadgesMainData);
+
+  }else{
+    let resultBadgesFilteredData = [];
+
+    /* get badges from filtered Data */
+    filteredData.forEach((item) => {
+      item.badges.forEach((el) => {
+        resultBadgesFilteredData.push(el);
+      });
+    });
+    const removeDoubblesFilteredData = [...new Set(resultBadgesFilteredData)].sort();
+    
+    select.innerText = '';
+    removeDoubblesFilteredData.forEach((item) => {
+      const option2 = document.createElement("option");
+      option2.innerText = item.toUpperCase().replace("_", " ");
+
+
+      select.appendChild(option2);
+    });
+    console.log("removeDoubblesFilteredData: ", removeDoubblesFilteredData);
+
+
+  }
+
+
+
+
 };
+
+
+
+
 
 const deleteFilterButtonFunk = () => {
   const filterForm = document.querySelector(".filter-form");
@@ -114,9 +158,8 @@ const cards = (data) => {
             <div class="card">
   
               <div class="image-wrapper hover01 column">
-                <figure><img src="${
-                  data[i].image
-                }" class="card-img-top" alt="...">
+                <figure><img src="${data[i].image
+      }" class="card-img-top" alt="...">
                 </figure>
               </div>
   
@@ -193,98 +236,99 @@ const setEventListeners = (data) => {
 
 
 
-  
-  /* -----------   Set CombinedFilters ---------- */
-  const combinedFilters = (data) => {
-    const selectedValue = document.querySelector(".option-select").value;
-    const searchValue = document
-      .getElementById("searchInput")
-      .value.trim()
-      .replace(/  +/g, " ")
-      .toLowerCase();
 
-    const filteredData = data
-      /*------- search value ------ */
-      .filter((item) => {
-        if (searchValue === "") {
-          return true;
-        }
-        return item.title.toLowerCase().includes(searchValue);
-      })
-      .filter((item) => {
-        if (selectedValue === "---- All ----" || selectedValue === "---- Options ----") {
-          return true;
-        }
-        return item.badges.includes(
-          selectedValue.toLowerCase().replace(" ", "_")
-        );
-      });
+/* -----------   Set CombinedFilters ---------- */
+const combinedFilters = (data) => {
+  const selectedValue = document.querySelector(".option-select").value;
+  const searchValue = document
+    .getElementById("searchInput")
+    .value.trim()
+    .replace(/  +/g, " ")
+    .toLowerCase();
 
-      checkBoxLikesFunc(filteredData);
-    // const printData = (filteredData) => {
-    // };
-
-    }
-
-
-    /* -------- Sort recipes by Likes */
-    function checkBoxLikesFunc(data) {
-      const checkBLikes = document.querySelector("#checkBoxLikes");
-      const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
-
-      const isChecked = checkBLikes.checked;
-      // const isChecked = sortCheckBoxLabel.checked;
-      console.log("isChecked: ", isChecked);
-      let sortedData = [];
-
-      data.forEach((item) => {
-        sortedData.push(item);
-        item;
-      });
-
-      if (isChecked) {
-        // sortCheckBoxLabel.innerHTML = "";
-        sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-        sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-        sortCheckBoxLabel.insertAdjacentHTML(
-          "beforeend",
-          `<i class="fa-solid fa-arrow-up-9-1"></i>`
-        );
-      } else {
-        // sortCheckBoxLabel.innerHTML = "";
-        sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-        sortedData = sortedData.sort((a, b) => b.likes - a.likes);
-        sortCheckBoxLabel.insertAdjacentHTML(
-          "beforeend",
-          `<i class="fa-solid fa-arrow-down-1-9"></i>`
-        );
+  const filteredData = data
+    /*------- search value ------ */
+    .filter((item) => {
+      if (searchValue === "") {
+        return true;
       }
-      cards(sortedData);
+      return item.title.toLowerCase().includes(searchValue);
+    })
+    .filter((item) => {
+      if (selectedValue === "---- All ----" || selectedValue === "---- Options ----") {
+        return true;
+      }
+      return item.badges.includes(
+        selectedValue.toLowerCase().replace(" ", "_")
+      );
+    });
 
-      // printData(sortedData);
-      // recipeDetailsEventListener(data);
-    }
+  getDataForOptions(data, filteredData)
+  checkBoxLikesFunc(filteredData);
+  // const printData = (filteredData) => {
+  // };
 
-    // cards(filteredData)
-    // printData(filteredData);
+}
 
 
-  /* Reseting/ deleting the actuell filters */
-  // change this
-  const inputGroup = document.querySelector(".input-group");
+/* -------- Sort recipes by Likes */
+function checkBoxLikesFunc(data) {
+  const checkBLikes = document.querySelector("#checkBoxLikes");
+  const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
 
-  const deleteFilterButton = document.createElement("button");
-  deleteFilterButton.innerText = "Delete Filters";
-  deleteFilterButton.setAttribute("class", "btn btn-secondary");
-  deleteFilterButton.setAttribute("type", "button");
+  const isChecked = checkBLikes.checked;
+  // const isChecked = sortCheckBoxLabel.checked;
+  console.log("isChecked: ", isChecked);
+  let sortedData = [];
 
-  inputGroup.appendChild(deleteFilterButton);
-
-  deleteFilterButton.addEventListener("click", () => {
-    deleteFilterButtonFunk();
+  data.forEach((item) => {
+    sortedData.push(item);
+    item;
   });
+
+  if (isChecked) {
+    // sortCheckBoxLabel.innerHTML = "";
+    sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+    sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+    sortCheckBoxLabel.insertAdjacentHTML(
+      "beforeend",
+      `<i class="fa-solid fa-arrow-up-9-1"></i>`
+    );
+  } else {
+    // sortCheckBoxLabel.innerHTML = "";
+    sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+    sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+    sortCheckBoxLabel.insertAdjacentHTML(
+      "beforeend",
+      `<i class="fa-solid fa-arrow-down-1-9"></i>`
+    );
+  }
+  cards(sortedData);
+
+  // printData(sortedData);
+  // recipeDetailsEventListener(data);
+}
+
+// cards(filteredData)
+// printData(filteredData);
+
+
+/* Reseting/ deleting the actuell filters */
+// change this
+const inputGroup = document.querySelector(".input-group");
+
+const deleteFilterButton = document.createElement("button");
+deleteFilterButton.innerText = "Delete Filters";
+deleteFilterButton.setAttribute("class", "btn btn-secondary");
+deleteFilterButton.setAttribute("type", "button");
+
+inputGroup.appendChild(deleteFilterButton);
+
+deleteFilterButton.addEventListener("click", () => {
+  deleteFilterButtonFunk();
+});
 /* ----------- Add event listener --------------- ends*/
 
 /* Recipe Details Site */
