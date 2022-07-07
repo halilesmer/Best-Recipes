@@ -395,7 +395,7 @@ const setEventListeners = (data) => {
         sortedData = sortedData.sort((a, b) => a.likes - b.likes);
         sortCheckBoxLabel.insertAdjacentHTML(
           "beforeend",
-          `  <i class="fa-solid fa-arrow-down-1-9"></i>`
+          `<i class="fa-solid fa-arrow-up-9-1"></i>`
         );
       } else {
         sortCheckBoxLabel.innerHTML = "";
@@ -404,7 +404,7 @@ const setEventListeners = (data) => {
         sortedData = sortedData.sort((a, b) => b.likes - a.likes);
         sortCheckBoxLabel.insertAdjacentHTML(
           "beforeend",
-          `  <i class="fa-solid fa-arrow-up-9-1"></i>`
+          `<i class="fa-solid fa-arrow-down-1-9"></i>`
         );
       }
       cards(sortedData);
