@@ -122,7 +122,7 @@ const cards = (data) => {
 
               </div>
               <div class="list-group list-group-flush">
-                <button class="btn btn-outline-info card-link" role="button">Recipe Details</button>
+                <button class="btn btn-outline-info card-link btn-sm card-button" role="button">Recipe Details</button>
   
               </div>
           </div>

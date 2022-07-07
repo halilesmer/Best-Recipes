@@ -120,3 +120,6 @@ a:hover {
   color: #092222;
   border-color: #2f4e54;
 }
+button.card-button{
+  margin: .4rem;
+}
