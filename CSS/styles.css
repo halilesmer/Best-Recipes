@@ -74,6 +74,12 @@ border-bottom: blueviolet solid;
   margin-bottom: 0.2rem !important;
 }
 
+label.form-check-label.btn.btn-outline-secondary.sortCheckBoxLabel {
+    background: #6c757d;
+        color: white;
+
+}
+
 .fa-arrow-down-1-9:before {
   color: aliceblue;
   font-size: 1.2rem;
