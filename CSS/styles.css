@@ -26,7 +26,11 @@ border-bottom: blueviolet solid;
   width: 90%;
   margin: auto;
 }
+.navbar-brand {
 
+margin-right: unset !important; 
+  
+}
 .container-fluid {
   margin: auto;
   width: auto;
