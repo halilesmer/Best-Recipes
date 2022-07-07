@@ -360,7 +360,7 @@ const setEventListeners = (data) => {
         return item.title.toLowerCase().includes(searchValue);
       })
       .filter((item) => {
-        if (selectedValue === "All" || selectedValue === "Options") {
+        if (selectedValue === "---- All ----" || selectedValue === "---- Options ----") {
           return true;
         }
 
