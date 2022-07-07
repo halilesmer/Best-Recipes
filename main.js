@@ -1,6 +1,6 @@
 // const localIngredientsData = findByIngredientsData;
 const mainData = GroceryProductsData;
-const detailsData = recipeDetail;
+const detailsData = recipeDetails;
 
 // const fetchIngredientsDatas = async () => {
 //   let urls = [
@@ -38,7 +38,7 @@ const detailsData = recipeDetail;
 
 // /* ------- Controller ----- */
 // const controller = async (mainData, detailsData) => {
-//      const data = await fetchIngredientsDatas()
+//      const mainData = await fetchIngredientsDatas()
 //      console.log("data: ", data);
 
 //     deleteFilterButtonFunk(mainData);
@@ -63,17 +63,32 @@ const controller = (mainData, detailsData) => {
   getDataForOptions(mainData);
 };
 
-/* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
-const recipeDetailsEventListener = (mainData, detailsData) => {
-  const card = document.querySelectorAll(".card");
+const getDataForOptions = (data) => {
+  const select = document.querySelector(".option-select");
 
-  card.forEach((item) => {
-    item.addEventListener("click", () => {
-      console.log("click eventListerner");
+  let response = [];
 
-      recipeDetails(mainData, detailsData);
+  data.forEach((item) => {
+    item.badges.forEach((el) => {
+      response.push(el);
     });
   });
+
+  const removeDoubbles = [...new Set(response)].sort();
+  console.log("removeDoubbles: ", removeDoubbles);
+
+  removeDoubbles.forEach((item) => {
+    const option = document.createElement("option");
+    option.innerText = item.toUpperCase().replace("_", " ");
+    select.appendChild(option);
+  });
+};
+
+const deleteFilterButtonFunk = () => {
+  const filterForm = document.querySelector(".filter-form");
+
+  filterForm.reset();
+  cards(mainData);
 };
 
 /* -------  Cards Lists ----------- */
@@ -113,7 +128,7 @@ const cards = (data) => {
                  <i class="fa-solid fa-clock"></i>
                 <span>  
   
-            ${recipeDetail.preparationMinutes + recipeDetail.cookingMinutes}
+            ${detailsData.preparationMinutes + detailsData.cookingMinutes}
             
             Min   -</span>
               <span>${data[i].likes}</span>
@@ -136,9 +151,140 @@ const cards = (data) => {
   recipeDetailsEventListener(mainData, detailsData);
 };
 
+
+/* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
+const recipeDetailsEventListener = (mainData, detailsData) => {
+  const card = document.querySelectorAll(".card");
+
+  card.forEach((item) => {
+    item.addEventListener("click", () => {
+      console.log("click eventListerner");
+
+      recipeDetailsFunc(detailsData);
+    });
+  });
+};
+
+
+
+
+/* ----------- Add event listener --------------- starts*/
+const setEventListeners = (data) => {
+  /* ------- Searching recipes by typing ------------ */
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", (e) => {
+    // searchFunc(data);
+    combinedFilters();
+  });
+  /* ---------- Select an Option -------------- */
+  const select = document.querySelector(".option-select");
+  select.addEventListener("change", () => {
+    // selectOptions(data);
+    combinedFilters();
+  });
+
+  /* ------- Sorting recipes by checkboxing ------------ */
+  const checkBLikes = document.querySelector("#checkBoxLikes");
+  checkBLikes.addEventListener("click", () => {
+    // checkBoxLikesFunc(data);
+    combinedFilters();
+    /*  */
+  });
+
+
+  /* -----------   Set CombinedFilters ---------- */
+  const combinedFilters = () => {
+    const selectedValue = document.querySelector(".option-select").value;
+    const searchValue = document
+      .getElementById("searchInput")
+      .value.trim()
+      .replace(/  +/g, " ")
+      .toLowerCase();
+
+    const filteredData = data
+      /*------- search value ------ */
+      .filter((item) => {
+        if (searchValue === "") {
+          return true;
+        }
+        return item.title.toLowerCase().includes(searchValue);
+      })
+      .filter((item) => {
+        if (selectedValue === "---- All ----" || selectedValue === "---- Options ----") {
+          return true;
+        }
+        return item.badges.includes(
+          selectedValue.toLowerCase().replace(" ", "_")
+        );
+      });
+
+      checkBoxLikesFunc(filteredData);
+    // const printData = (filteredData) => {
+    // };
+
+    /* -------- Sort recipes by Likes */
+    function checkBoxLikesFunc(data) {
+      const checkBLikes = document.querySelector("#checkBoxLikes");
+      const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
+
+      const isChecked = checkBLikes.checked;
+      // const isChecked = sortCheckBoxLabel.checked;
+      console.log("isChecked: ", isChecked);
+      let sortedData = [];
+
+      data.forEach((item) => {
+        sortedData.push(item);
+        item;
+      });
+
+      if (isChecked) {
+        // sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => a.likes - b.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `<i class="fa-solid fa-arrow-up-9-1"></i>`
+        );
+      } else {
+        // sortCheckBoxLabel.innerHTML = "";
+        sortCheckBoxLabel.innerHTML = "Sort by Likes";
+
+        sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+        sortCheckBoxLabel.insertAdjacentHTML(
+          "beforeend",
+          `<i class="fa-solid fa-arrow-down-1-9"></i>`
+        );
+      }
+      cards(sortedData);
+
+      // printData(sortedData);
+      // recipeDetailsEventListener(data);
+    }
+
+    // cards(filteredData)
+    // printData(filteredData);
+  };
+
+  /* Reseting/ deleting the actuell filters */
+  // change this
+  const inputGroup = document.querySelector(".input-group");
+
+  const deleteFilterButton = document.createElement("button");
+  deleteFilterButton.innerText = "Delete Filters";
+  deleteFilterButton.setAttribute("class", "btn btn-secondary");
+  deleteFilterButton.setAttribute("type", "button");
+
+  inputGroup.appendChild(deleteFilterButton);
+
+  deleteFilterButton.addEventListener("click", () => {
+    deleteFilterButtonFunk();
+  });
+};
+/* ----------- Add event listener --------------- ends*/
+
 /* Recipe Details Site */
-const recipeDetails = (mainData, detailsData) => {
-  console.log("data recipeDetails: ", detailsData);
+const recipeDetailsFunc = (detailsData) => {
   const cardContainer = document.querySelector(".card-container");
   cardContainer.classList.add("makeDisplayNone");
 
@@ -257,19 +403,6 @@ const recipeDetails = (mainData, detailsData) => {
   stepsListCon.appendChild(stepsListOl);
   stepsCon.appendChild(moreButton);
 
-  // ------  Ingredients List - ------
-  // for (let x = 0; x < detailsData.length; x++) {
-  //   console.log("detailsData: ", detailsData);
-  //   for (let y = 0; y < detailsData[x].usedIngredients.length; y++) {
-  //     IngredientsOl.innerHTML = ` <li>
-  //             ${detailsData[x].usedIngredients[y].amount}
-  //             ${detailsData[x].usedIngredients[y].unit}
-  //             ${detailsData[x].usedIngredients[y].aisle}
-  //             </li>`;
-  //   }
-  // }
-
-  //
   for (let x = 0; x < detailsData.analyzedInstructions.length; x++) {
     // const steps = detailsData.analyzedInstructions[x].steps;
     for (let y = 0; y < detailsData.analyzedInstructions[x].steps.length; y++) {
@@ -287,7 +420,6 @@ const recipeDetails = (mainData, detailsData) => {
           `
       );
     }
-    // showMoreFunc();
     moreButton.addEventListener("click", showMoreFunc);
   }
 
@@ -316,182 +448,9 @@ const goHome = () => {
   recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
 };
 
-/* ----------- Add event listener --------------- starts*/
-const setEventListeners = (data) => {
-  /* ------- Searching recipes by typing ------------ */
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", (e) => {
-    // searchFunc(data);
-    combinedFilters();
-  });
-  /* ---------- Select an Option -------------- */
-  const select = document.querySelector(".option-select");
-  select.addEventListener("change", () => {
-    // selectOptions(data);
-    combinedFilters();
-  });
 
-  /* ------- Sorting recipes by checkboxing ------------ */
-  const checkBLikes = document.querySelector("#checkBoxLikes");
-  checkBLikes.addEventListener("click", () => {
-    // checkBoxLikesFunk(data);
-    combinedFilters();
-    /*  */
-  });
 
-  /* -----------   Set CombinedFilters  testing --------------------------- */
 
-  /* -----------   Set CombinedFilters ---------- */
-  const combinedFilters = () => {
-    const selectedValue = document.querySelector(".option-select").value;
-    const searchValue = document
-      .getElementById("searchInput")
-      .value.trim()
-      .replace(/  +/g, " ")
-      .toLowerCase();
-
-    const filteredData = data
-      /*------- search value ------ */
-      .filter((item) => {
-        if (searchValue === "") {
-          return true;
-        }
-
-        return item.title.toLowerCase().includes(searchValue);
-      })
-      .filter((item) => {
-        if (selectedValue === "---- All ----" || selectedValue === "---- Options ----") {
-          return true;
-        }
-
-        return item.badges.includes(
-          selectedValue.toLowerCase().replace(" ", "_")
-        );
-      });
-
-    const printData = (filteredData) => {
-      checkBoxLikesFunk(filteredData);
-    };
-
-    /* -------- Sort recipes by Likes */
-    function checkBoxLikesFunk(data) {
-      const checkBLikes = document.querySelector("#checkBoxLikes");
-      const sortCheckBoxLabel = document.querySelector(".sortCheckBoxLabel");
-
-      const isChecked = checkBLikes.checked;
-      // const isChecked = sortCheckBoxLabel.checked;
-      console.log("isChecked: ", isChecked);
-      let sortedData = [];
-
-      data.forEach((item) => {
-        sortedData.push(item);
-        item;
-      });
-
-      if (isChecked) {
-        sortCheckBoxLabel.innerHTML = "";
-        sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-        sortedData = sortedData.sort((a, b) => a.likes - b.likes);
-        sortCheckBoxLabel.insertAdjacentHTML(
-          "beforeend",
-          `<i class="fa-solid fa-arrow-up-9-1"></i>`
-        );
-      } else {
-        sortCheckBoxLabel.innerHTML = "";
-        sortCheckBoxLabel.innerHTML = "Sort by Likes";
-
-        sortedData = sortedData.sort((a, b) => b.likes - a.likes);
-        sortCheckBoxLabel.insertAdjacentHTML(
-          "beforeend",
-          `<i class="fa-solid fa-arrow-down-1-9"></i>`
-        );
-      }
-      cards(sortedData);
-
-      // printData(sortedData);
-      // recipeDetailsEventListener(data);
-    }
-
-    // cards(filteredData)
-    printData(filteredData);
-  };
-
-  /* Reseting/ deleting the actuell filters */
-  const inputGroup = document.querySelector(".input-group");
-
-  const deleteFilterButton = document.createElement("button");
-  deleteFilterButton.innerText = "Delete Filters";
-  deleteFilterButton.setAttribute("class", "btn btn-secondary");
-  deleteFilterButton.setAttribute("type", "button");
-
-  inputGroup.appendChild(deleteFilterButton);
-
-  deleteFilterButton.addEventListener("click", () => {
-    deleteFilterButtonFunk();
-  });
-};
-/* ----------- Add event listener --------------- ends*/
-
-// const searchFunc = (data) => {
-//   const inputValue = document
-//     .getElementById("searchInput")
-//     .value.trim()
-//     .replace(/  +/g, " ")
-//     .toUpperCase();
-
-//   /* multiple spaces trimmed */
-//   //  let inputValue = e.target.value.trim().replace(/  +/g, " ").toUpperCase();
-
-//   const searchResult = data.filter((item) =>
-//     item.title.toUpperCase().includes(inputValue)
-//   );
-//   cards(searchResult);
-// };
-
-const getDataForOptions = (data) => {
-  const select = document.querySelector(".option-select");
-
-  let response = [];
-
-  data.forEach((item) => {
-    item.badges.forEach((el) => {
-      response.push(el);
-    });
-  });
-
-  const removeDoubbles = [...new Set(response)].sort();
-  console.log("removeDoubbles: ", removeDoubbles);
-
-  removeDoubbles.forEach((item) => {
-    const option = document.createElement("option");
-    option.innerText = item.toUpperCase().replace("_", " ");
-    select.appendChild(option);
-  });
-};
-// const selectOptions = (data) => {
-//   const select = document.querySelector(".option-select");
-
-//   let result = []
-//   for (let index = 0; index < data.length; index++) {
-//     for (let i = 0; i < data[index].badges.length; i++) {
-
-//       if (data[index].badges[i].toUpperCase().replace("_", " ") === select.value) {
-//         result.push(data[index])
-//       }
-
-//     }
-//   }
-//   console.log("result: ", result);
-//   cards(result)
-// }
-
-const deleteFilterButtonFunk = () => {
-  const filterForm = document.querySelector(".filter-form");
-
-  filterForm.reset();
-  cards(mainData);
-};
 
 
 controller(mainData, detailsData);

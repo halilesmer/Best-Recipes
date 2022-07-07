@@ -1,4 +1,4 @@
-const recipeDetail = {
+const recipeDetails = {
   vegetarian: false,
   vegan: false,
   glutenFree: false,
