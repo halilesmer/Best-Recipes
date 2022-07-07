@@ -148,18 +148,17 @@ const cards = (data) => {
     );
   }
 
-  recipeDetailsEventListener(mainData, detailsData);
+  recipeDetailsEventListener(detailsData);
 };
 
 
 /* --- Recipe Event Listener / Open the Recipe Details Site  -----*/
-const recipeDetailsEventListener = (mainData, detailsData) => {
+const recipeDetailsEventListener = (detailsData) => {
   const card = document.querySelectorAll(".card");
-
   card.forEach((item) => {
     item.addEventListener("click", () => {
-      console.log("click eventListerner");
-
+      const searchContainer = document.querySelector('.searchContainer');
+      searchContainer.style.display = 'none';
       recipeDetailsFunc(detailsData);
     });
   });
@@ -295,13 +294,13 @@ const recipeDetailsFunc = (detailsData) => {
 
   /* --- Created Elements --- */
   const backButtonDiv = document.createElement("div");
-  backButtonDiv.setAttribute("class", "arrow-left");
+  backButtonDiv.setAttribute("class", "backButtonDiv");
 
   const recipeDetailsCon = document.createElement("div");
   recipeDetailsCon.setAttribute("class", "recipeDetailsCon");
 
-  const arrowLeftIcon = document.createElement("i");
-  arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
+  // const arrowLeftIcon = document.createElement("i");
+  // arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
 
   const backButton = document.createElement("button");
   backButton.setAttribute("class", "btn btn-primary btn-sm");
@@ -376,7 +375,7 @@ const recipeDetailsFunc = (detailsData) => {
   mainElement.appendChild(recipeDetailsCon);
   recipeDetailsCon.appendChild(backButtonDiv);
   backButtonDiv.appendChild(backButton);
-  backButtonDiv.appendChild(arrowLeftIcon);
+  // backButtonDiv.appendChild(arrowLeftIcon);
   recipeDetailsCon.appendChild(recipeImageCon);
   recipeImageCon.appendChild(mainImg);
   recipeDetailsCon.appendChild(recipeTextCon);
@@ -441,6 +440,9 @@ const showMoreFunc = () => {
 };
 
 const goHome = () => {
+  const searchContainer = document.querySelector('.searchContainer');
+  searchContainer.style.display = 'flex';
+
   const cardContainer = document.querySelector(".card-container");
   cardContainer.classList.remove("makeDisplayNone");
 
