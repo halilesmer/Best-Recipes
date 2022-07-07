@@ -79,7 +79,10 @@ label.form-check-label.btn.btn-outline-secondary.sortCheckBoxLabel {
         color: white;
 
 }
+.select-option{
+      max-width: 11rem;
 
+}
 .fa-arrow-down-1-9:before {
   color: aliceblue;
   font-size: 1.2rem;
