@@ -1,64 +1,13 @@
-// const localIngredientsData = findByIngredientsData;
+
 const mainData = GroceryProductsData;
 const detailsData = recipeDetails;
 
-// const fetchIngredientsDatas = async () => {
-//   let urls = [
-//     `https://api.spoonacular.com/food/products/search?number=100&query=pizza&addProductInformation=true&apiKey=${API_KEY_TAX}`,
-//     `https://api.spoonacular.com/recipes/716429/information?apiKey=${API_KEY_TAX}`
-//   ];
-//   // let url = './data/findByIngredients.js'
-//   try {
-//     const responses = await Promise.all(
-//       urls.map(url => {
-//         const response = fetch(url)
-//         return response;
-//       })
-//       )
-//       console.log("responses: ", responses);
-
-//     if (responses[0].status === 200 && responses[1].status === 200) {
-//       const mainData = await responses[0].json();
-//       const detailsData = await responses[1].json();
-//       console.log("mainData: ", mainData);
-//       console.log("detailsData: ", detailsData);
-
-//       controller(mainData, detailsData)
-
-//     }
-//   } catch (error) {
-//     console.log("error: ", error);
-
-//   }
-
-//   // const response = await fetch(url);
-//   // const result = await response.json();
-
-// };
-
-// /* ------- Controller ----- */
-// const controller = async (mainData, detailsData) => {
-//      const mainData = await fetchIngredientsDatas()
-//      console.log("data: ", data);
-
-//     deleteFilterButtonFunk(mainData);
-//     cards(mainData);
-
-//      recipeDetailsEventListener(detailsData)
-
-//     setEventListeners(mainData);
-//     getDataForOptions(mainData)
-
-// };
 
 /* ------- Controller - only for local Data ----- */
-const controller = (mainData, detailsData) => {
+const controller = (mainData) => {
 
   deleteFilterButtonFunk(mainData);
   cards(mainData);
-
-  // recipeDetailsEventListener(mainData, detailsData);
-
   setEventListeners(mainData);
   getDataForOptions(mainData);
 };
@@ -219,9 +168,6 @@ const setEventListeners = (data) => {
 
 };
 
-
-
-
 /* -----------   Set CombinedFilters ---------- */
 const combinedFilters = (data) => {
   const selectedValue = document.querySelector(".option-select").value;
@@ -319,8 +265,6 @@ const recipeDetailsFunc = (detailsData) => {
 
   const mainElement = document.querySelector("main");
   mainElement.classList.remove("makeDisplayNone");
-
-  const test = document.querySelector("main");
 
   /* --- Created Elements --- */
   const backButtonDiv = document.createElement("div");
