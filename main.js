@@ -67,14 +67,8 @@ const controller = (mainData, detailsData) => {
 
 
 const getDataForOptions = (mainData, filteredData) => {
-  console.log("filteredData: ", filteredData);
-  console.log(filteredData === undefined || filteredData === '' || filteredData.length===0)
-
   const select = document.querySelector(".option-select");
-
-
   let resultBadgesMainData = [];
-  
   
   if (filteredData === undefined || filteredData === '' || filteredData.length === 0) {
     mainData.forEach((item) => {
@@ -83,7 +77,6 @@ const getDataForOptions = (mainData, filteredData) => {
       });
     });
     const removeDoubblesMainData = [...new Set(resultBadgesMainData)].sort();
-    console.log("removeDoubblesMainData: ", removeDoubblesMainData);
     
     removeDoubblesMainData.forEach((item) => {
       const option = document.createElement("option");
@@ -93,7 +86,6 @@ const getDataForOptions = (mainData, filteredData) => {
       
       select.appendChild(option);
     });
-    console.log("resultBadgesMainData: ", resultBadgesMainData);
 
   }else{
     let resultBadgesFilteredData = [];
@@ -114,14 +106,7 @@ const getDataForOptions = (mainData, filteredData) => {
 
       select.appendChild(option2);
     });
-    console.log("removeDoubblesFilteredData: ", removeDoubblesFilteredData);
-
-
   }
-
-
-
-
 };
 
 
@@ -306,13 +291,9 @@ function checkBoxLikesFunc(data) {
     );
   }
   cards(sortedData);
-
-  // printData(sortedData);
-  // recipeDetailsEventListener(data);
 }
 
-// cards(filteredData)
-// printData(filteredData);
+
 
 
 /* Reseting/ deleting the actuell filters */
@@ -347,9 +328,6 @@ const recipeDetailsFunc = (detailsData) => {
 
   const recipeDetailsCon = document.createElement("div");
   recipeDetailsCon.setAttribute("class", "recipeDetailsCon");
-
-  // const arrowLeftIcon = document.createElement("i");
-  // arrowLeftIcon.setAttribute("class", "fa-regular fa-left");
 
   const backButton = document.createElement("button");
   backButton.setAttribute("class", "btn btn-primary btn-sm");
@@ -424,7 +402,7 @@ const recipeDetailsFunc = (detailsData) => {
   mainElement.appendChild(recipeDetailsCon);
   recipeDetailsCon.appendChild(backButtonDiv);
   backButtonDiv.appendChild(backButton);
-  // backButtonDiv.appendChild(arrowLeftIcon);
+
   recipeDetailsCon.appendChild(recipeImageCon);
   recipeImageCon.appendChild(mainImg);
   recipeDetailsCon.appendChild(recipeTextCon);
@@ -452,7 +430,6 @@ const recipeDetailsFunc = (detailsData) => {
   stepsCon.appendChild(moreButton);
 
   for (let x = 0; x < detailsData.analyzedInstructions.length; x++) {
-    // const steps = detailsData.analyzedInstructions[x].steps;
     for (let y = 0; y < detailsData.analyzedInstructions[x].steps.length; y++) {
       const sortedSteps = detailsData.analyzedInstructions[x].steps.sort(
         (a, b) => b.number - a.number
@@ -482,7 +459,7 @@ const showMoreFunc = () => {
 
   const stepsListCon = document.querySelector(".stepsListCon");
 
-  // --- Show more or less textes at the bottom
+  // --- Show more or less textes in the bottom ---------//
   stepsListCon.classList.contains("stepsListMore")
     ? (showMoreBtn.textContent = "Show Less")
     : (showMoreBtn.textContent = "Show More");
@@ -498,10 +475,6 @@ const goHome = () => {
   const recipeDetailsCon = document.querySelector(".recipeDetailsCon");
   recipeDetailsCon.parentNode.removeChild(recipeDetailsCon);
 };
-
-
-
-
 
 
 controller(mainData, detailsData);
